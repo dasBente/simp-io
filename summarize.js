@@ -1,21 +1,31 @@
 let header = findHeader();
 let scList = findContent().childNodes[1].childNodes[5].childNodes[1];
 let supers = [];
+let newDay = true;
 
 let controls = document.createElement("div");
 
-let button = document.createElement("button");
-button.innerText = "Calculate"
-button.onclick = onClick;
-controls.appendChild(button);
+let calcButton = document.createElement("button");
+calcButton.innerText = "Calculate";
+calcButton.onclick = calcStats;
+controls.appendChild(calcButton);
+
+let autoExpandButton = document.createElement("button");
+autoExpandButton.innerText = "Expand SCs";
+autoExpandButton.onclick = expandSCs;
+controls.appendChild(autoExpandButton);
 
 header.parentNode.insertBefore(controls, header.nextSibling);
 
 let display = document.createElement("div");
+display.style.color = "white";
+display.style.fontSize = "16px";
+display.style.backgroundColor = "black";
 header.parentNode.insertBefore(display, controls.nextSibling);
 
-function onClick() {
+function calcStats() {
     supers = [];
+    newDay = true;
 
     processSCs(findSCs(), supers);
 
@@ -31,12 +41,17 @@ function onClick() {
     }
 
     let sums = summarizeAmounts(supers);
-    let csvs = supersToCSV(supers);
+    let csv = supersToCSV(supers);
 
     // build visualization
     display.innerHTML = "";
     updateTable(display, sums);
-    exportCsv(display, csvs);
+    exportCsv(display, csv);
+}
+
+function expandSCs() {
+    let btn = document.getElementById("more-contents-button").childNodes[0].childNodes[0].childNodes[0].childNodes[1];
+    setInterval(function() { btn.click(); }, 250); // dirty solution
 }
 
 function updateTable(elem, sums) {
@@ -45,9 +60,6 @@ function updateTable(elem, sums) {
 
     // build table
     let table = document.createElement('table');
-    table.style.color = "white";
-    table.style.fontSize = "16px";
-    table.style.backgroundColor = "black";
 
     // build table header
     let header = document.createElement('tr');
@@ -86,11 +98,16 @@ function updateTable(elem, sums) {
 }
 
 function exportCsv(elem, csv) {
+    let a = document.createElement('a');
+    a.innerText = "Export data as .csv";
+    
+    let content = encodeURI('data:text/csv;charset=utf-8,' + csv);
+    a.href = content;
 
+    elem.appendChild(a);
 }
 
 function processSCs(scElem, scs) {
-    let newDay = true;
     let date = "";
 
     for (let i = 0; i < scElem.childElementCount; i++) {
