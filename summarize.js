@@ -21,6 +21,7 @@ function onClick() {
 
     let i = 0;
 
+    // go through additionally loaded SCs
     while (true) {
         let rem = findRemainingSCs(i);    
         if (rem === undefined) break;
@@ -32,6 +33,7 @@ function onClick() {
     let sums = summarizeAmounts(supers);
     let csvs = supersToCSV(supers);
 
+    // build visualization
     display.innerHTML = "";
     updateTable(display, sums);
     exportCsv(display, csvs);
@@ -41,14 +43,13 @@ function updateTable(elem, sums) {
     let channels = Object.keys(sums);
     let keys = Object.keys(sums[channels[0]]);
 
+    // build table
     let table = document.createElement('table');
-    
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        table.style.color = "white";
-        table.style.fontSize = "16px";
-    }
+    table.style.color = "white";
+    table.style.fontSize = "16px";
+    table.style.backgroundColor = "black";
 
-
+    // build table header
     let header = document.createElement('tr');
     
     let item = document.createElement('th');
@@ -62,13 +63,16 @@ function updateTable(elem, sums) {
     }
     table.appendChild(header);
 
+    // build table rows
     for (let i = 0; i < channels.length; i++) {
         let row = document.createElement('tr');
         
+        // add channel name as first column
         let item = document.createElement('td');
         item.innerText = channels[i];
         row.appendChild(item);
 
+        // remaining statistical data
         for (let j = 0; j < keys.length; j++) {
             let item = document.createElement('td');
             item.innerText = sums[channels[i]][keys[j]];
@@ -106,6 +110,7 @@ function processSCs(scElem, scs) {
             let total = totalFromElement(sc);
             let type = typeFromElement(sc);
 
+            // push new data point
             scs.push({ date, channel, type, total });
         } else newDay = true;
     }
@@ -113,15 +118,16 @@ function processSCs(scElem, scs) {
 
 function supersToCSV(data) {
     let keys = Object.keys(data[0]);
-
     let csv = "";
 
+    // build header
     for (let i = 0; i < keys.length; i++) {
         csv += keys[i]
 
         if (i !== keys.length - 1) csv += ","
     }
 
+    // build data row by row
     for (let i = 0; i < data.length; i++) {
         csv += "\n";
 
@@ -154,6 +160,10 @@ function summarizeAmounts(data) {
 function currencyToNumber(curr) {
     return Number(curr.replace(/[^0-9.-]+/g,""));
 }
+
+//
+// Functions below here are just used to navigate the html of the sc list.
+//
 
 function findContent() {
     return document.getElementById("primary").childNodes[0].childNodes[3].childNodes[0].childNodes[5];
