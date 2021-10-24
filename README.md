@@ -35,3 +35,9 @@ The extension should now be loaded.
 5. Load the project folder
 
 The extension should now be loaded.
+
+## Attributions
+Images combined for the application icon:
+
+* A colored emoji of a dollar bill as part of the [Noto Emoji project](https://github.com/googlei18n/noto-emoji/), [Apache 2.0](https://github.com/googlei18n/noto-emoji/blob/master/LICENSE)
+* A colored emoji of a fire as part of the [Noto Emoji project](https://github.com/googlei18n/noto-emoji/), [Apache 2.0](https://github.com/googlei18n/noto-emoji/blob/master/LICENSE)
