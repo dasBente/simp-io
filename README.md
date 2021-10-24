@@ -6,7 +6,7 @@ Other features include the automatic expansion of your purchase history at the p
 exporting all your purchases into a detailed .csv file for further analysis if you so desire.  
   
 **Disclaimer:** This code was cobbled together in the span of a couple of hours and I refuse to engage with it
-for any longer, feel free to build on top of this if you want to.  
+for any longer (at least for now), feel free to build on top of this if you want to.  
 Might break immediately whenever YouTube chooses to change part of their frontend. There might be easier methods
 than what I've used (scouring through the page HTML like a rat), but investing any more time than I already did
 for this felt wrong.
