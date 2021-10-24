@@ -103,6 +103,7 @@ function exportCsv(elem, csv) {
     
     let content = encodeURI('data:text/csv;charset=utf-8,' + csv);
     a.href = content;
+    a.download = "data.csv";
 
     elem.appendChild(a);
 }
