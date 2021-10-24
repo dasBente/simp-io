@@ -2,14 +2,17 @@ let header = findHeader();
 let scList = findContent().childNodes[1].childNodes[5].childNodes[1];
 let supers = [];
 
+let controls = document.createElement("div");
+
 let button = document.createElement("button");
 button.innerText = "Calculate"
 button.onclick = onClick;
+controls.appendChild(button);
 
-header.parentNode.insertBefore(button, header.nextSibling);
+header.parentNode.insertBefore(controls, header.nextSibling);
 
 let display = document.createElement("div");
-header.parentNode.insertBefore(display, button.nextSibling);
+header.parentNode.insertBefore(display, controls.nextSibling);
 
 function onClick() {
     supers = [];
@@ -100,10 +103,10 @@ function processSCs(scElem, scs) {
             // skip empty SCs (for now)
             if (channel === "Super Chat") continue;
 
-            let amount = amountFromElement(sc);
+            let total = totalFromElement(sc);
             let type = typeFromElement(sc);
 
-            scs.push({ date, channel, type, amount });
+            scs.push({ date, channel, type, total });
         } else newDay = true;
     }
 }
@@ -137,12 +140,12 @@ function summarizeAmounts(data) {
     for (let i = 0; i < data.length; i++) {
         let d = data[i];
 
-        let amount = currencyToNumber(d.amount);
+        let total = currencyToNumber(d.total);
         if (sums[d.channel]) {
             sums[d.channel].n += 1;
-            sums[d.channel].amount += amount;
+            sums[d.channel].total += total;
         } else {
-            sums[d.channel] = { amount, n: 1 };
+            sums[d.channel] = { total, n: 1 };
         }
     }
     return sums;
@@ -185,6 +188,6 @@ function typeFromElement(elem) {
     return elementData(elem).childNodes[1].childNodes[3].childNodes[0].childNodes[1].childNodes[0].data
 }
 
-function amountFromElement(elem) {
+function totalFromElement(elem) {
     return elementData(elem).childNodes[3].childNodes[0].childNodes[1].childNodes[0].childNodes[1].childNodes[0].data;
 }
