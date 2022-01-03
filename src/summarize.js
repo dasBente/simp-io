@@ -23,7 +23,7 @@ display.style.fontSize = "16px";
 display.style.backgroundColor = "black";
 header.parentNode.insertBefore(display, controls.nextSibling);
 
-function calcStats() {
+export function calcStats() {
     supers = [];
     newDay = true;
 
@@ -40,61 +40,7 @@ function calcStats() {
         i++;
     }
 
-    let sums = summarizeAmounts(supers);
-    let csv = supersToCSV(supers);
-
-    // build visualization
-    display.innerHTML = "";
-    updateTable(display, sums);
-    exportCsv(display, csv);
-}
-
-function expandSCs() {
-    let btn = document.getElementById("more-contents-button").childNodes[0].childNodes[0].childNodes[0].childNodes[1];
-    setInterval(function() { btn.click(); }, 250); // dirty solution
-}
-
-function updateTable(elem, sums) {
-    let channels = Object.keys(sums);
-    let keys = Object.keys(sums[channels[0]]);
-
-    // build table
-    let table = document.createElement('table');
-
-    // build table header
-    let header = document.createElement('tr');
-    
-    let item = document.createElement('th');
-    item.innerText = 'channel';
-    header.appendChild(item);
-
-    for (let i = 0; i < keys.length; i++) {
-        let item = document.createElement('th');
-        item.innerText = keys[i];
-        header.appendChild(item);
-    }
-    table.appendChild(header);
-
-    // build table rows
-    for (let i = 0; i < channels.length; i++) {
-        let row = document.createElement('tr');
-        
-        // add channel name as first column
-        let item = document.createElement('td');
-        item.innerText = channels[i];
-        row.appendChild(item);
-
-        // remaining statistical data
-        for (let j = 0; j < keys.length; j++) {
-            let item = document.createElement('td');
-            item.innerText = sums[channels[i]][keys[j]];
-            row.appendChild(item);
-        }
-
-        table.appendChild(row);
-    }
-    
-    elem.appendChild(table);
+    return supers;
 }
 
 function exportCsv(elem, csv) {
