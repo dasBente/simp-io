@@ -1,28 +1,6 @@
-/**
- * Returns the node achieved by descending from a source node by a list of child indices.
- * @param {Element} source initial node
- * @param {array} childIndices list of n-th child to descend
- * @returns resulting node
- */
-export function descendDOM(source, childIndices = []) {
-    if (!source) {
-        console.error("Can't descend a undefined node!")
-        return;
-    }
+import { wait, descendDOM } from './utils';
 
-    let node = source;
-    childIndices.forEach((idx, i) => {
-        node = node.childNodes[idx];
-
-        if (!node) {
-            console.error(`Descend ${i+1} yields empty child from node ${source.tagName}, previous path: ${childIndices.slice(i)}, failing child: ${idx}`);
-            return;
-        }
-    });
-
-    return node;
-}
-
+// Returns content root
 const getContent = () => descendDOM(document.getElementById('primary'), [0, 3, 0, 5]);
 
 /**
@@ -30,7 +8,24 @@ const getContent = () => descendDOM(document.getElementById('primary'), [0, 3, 0
  */
 export const getHeader = () => descendDOM(getContent(), [0]);
 
-const getSuperChatSection = () => descendDOM(getContent(), [3, 5, 1]);
+/**
+ * Repeatedly click a button element to expand the SC section.
+ * @param {Element} button 
+ */
+export async function expand(button) {
+    let counter = 0;
+
+    while (counter < 10) {
+        if (button.offsetParent) {
+            button.childNodes[0].click();
+            counter = 0;
+        } else counter++;
+
+        await wait(100);
+    }
+}
+
+const getSCs = () => descendDOM(getContent(), [3, 5, 1]);
 
 
 function findRemainingSCs(i = 0) {

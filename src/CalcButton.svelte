@@ -1,19 +1,22 @@
 <script>
     import Button, { Label } from '@smui/button';
     import CircularProgress from '@smui/circular-progress';
+    import { expand } from './extraction'
     
     export let value;
     
     let processing = false;
 
-    function calc() {
+    async function calc() {
         processing = true;
+        await expand(document.getElementById('more-contents-button'));
         value = {};
+        processing = false;
     }
 </script>
 
 {#if !processing}
-<Button on:click={calc}>
+<Button on:click={calc} variant="raised">
         <Label>Calculate</Label>
 </Button>
 {:else}
