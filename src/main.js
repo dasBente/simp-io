@@ -1,6 +1,8 @@
 import App from './App.svelte';
-import * as $j from 'jquery';
 
-const app = new App({ target: $j('#primary'), props: {} });
+const node = document.createElement('div');
+document.getElementById('primary').appendChild(node);
+
+const app = new App({ target: node, props: {} });
 
 export default app;
