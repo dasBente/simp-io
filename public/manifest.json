@@ -10,7 +10,8 @@
     "content_scripts": [
         {
             "matches": ["*://*.youtube.com/*"],
-            "js": ["build/bundle.js"]
+            "js": ["build/bundle.js"],
+            "css": ["lib/css/bare.css"]
         }
     ]
 }

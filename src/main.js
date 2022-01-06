@@ -1,8 +1,8 @@
-import App from './App.svelte';
+import Extension from './Extension.svelte';
 
 const node = document.createElement('div');
-document.getElementById('primary').appendChild(node);
+document.body.appendChild(node);
 
-const app = new App({ target: node, props: {} });
+const app = new Extension({ target: node, props: {} });
 
 export default app;
