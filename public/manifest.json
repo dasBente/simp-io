@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "simp.io",
-    "version": "0.1",
+    "version": "0.2",
     "description": "Summarizes payments on the YouTube payment page.",
     "icons": {
         "48": "icons/48.png",
@@ -9,8 +9,9 @@
     },
     "content_scripts": [
         {
-            "matches": ["*://*.youtube.com/paid_memberships*"],
-            "js": ["summarize.js"]
+            "matches": ["*://*.youtube.com/*"],
+            "js": ["build/bundle.js"],
+            "css": ["lib/css/bare.css"]
         }
     ]
 }
