@@ -34,6 +34,7 @@ export function getScData() {
         .filter(sc => sc.getAttribute('aria-label'))
         .map(toData)
         .map(spreadDate())
+        .map(obj => ({ ...obj, price: breakDownCurrency(obj.price) }))
         .reduce(addToJson, {});
 
     return objToArray(scs);
@@ -56,6 +57,11 @@ const toData = elem => {
         price: descendDOM(profile, [3, 0, 1, 0, 1, 0]).textContent
     }
 }
+
+const breakDownCurrency = price => ({
+    amount: Number(price.replace(/[^0-9.-]+/g, '')),
+    symbol: price.replace(/[0-9.-]+/g, '')
+});
 
 const spreadDate = () => {
     // generate closure to keep information from previous elements

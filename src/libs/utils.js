@@ -36,4 +36,17 @@ export async function wait(ms) {
  * @param {object} obj input object
  * @returns array of object items in order of keys
  */
-const objToArray = obj => Object.keys(obj).map(k => obj[k]);
+export const objToArray = obj => Object.keys(obj).map(k => obj[k]);
+
+/**
+ * Truncate string-representation of number down to `n` trailing decimals.
+ * @param {number} num number to truncate
+ * @param {number} n maximal allowed trailing decimals
+ * @returns respective string representation of `num`
+ */
+export const trunc = (num, n) => {
+    num = "" + num;
+    let point = num.indexOf(".");
+
+    return point >= 0 ? num.slice(0, point + n) : num;
+}
