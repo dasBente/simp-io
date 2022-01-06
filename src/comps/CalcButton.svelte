@@ -1,7 +1,7 @@
 <script>
     import Button, { Label } from '@smui/button';
     import CircularProgress from '@smui/circular-progress';
-    import { expand } from '../libs/extraction'
+    import { expand, getScData } from '../libs/extraction'
     
     export let value;
     
@@ -10,7 +10,7 @@
     async function calc() {
         processing = true;
         await expand(document.getElementById('more-contents-button'));
-        value = {};
+        value = getScData();
         processing = false;
     }
 </script>

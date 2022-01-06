@@ -21,12 +21,11 @@ export async function wait(ms) {
 
     let node = source;
     childIndices.forEach((idx, i) => {
-        node = node.childNodes[idx];
-
         if (!node) {
-            console.error(`Descend ${i+1} yields empty child from node ${source.tagName}, previous path: ${childIndices.slice(i)}, failing child: ${idx}`);
+            console.error(`Descend ${i} yields empty child from node ${source.tagName}, previous path: ${childIndices.slice(i)}, failing child: ${idx}`);
             return;
         }
+        node = node.childNodes[idx];
     });
 
     return node;
