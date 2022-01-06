@@ -1,6 +1,6 @@
 <script>
     import App from './App.svelte';
-    import { getHeader } from './extraction';
+    import { getHeader } from './libs/extraction';
 
     function addExtension() {
         let node = document.createElement('div');

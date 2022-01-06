@@ -1,6 +1,6 @@
 <script>
-    import CalcButton from './CalcButton.svelte'
-    import ScTable from './SCTable.svelte';
+    import CalcButton from './comps/CalcButton.svelte'
+    import ScTable from './comps/SCTable.svelte';
 
     let data = [];
 </script>

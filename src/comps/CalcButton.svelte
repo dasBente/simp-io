@@ -1,7 +1,7 @@
 <script>
     import Button, { Label } from '@smui/button';
     import CircularProgress from '@smui/circular-progress';
-    import { expand } from './extraction'
+    import { expand } from '../libs/extraction'
     
     export let value;
     
