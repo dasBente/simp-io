@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "simp.io",
-    "version": "0.2",
+    "version": "0.2.1",
     "description": "Summarizes payments on the YouTube payment page.",
     "icons": {
         "48": "icons/48.png",
