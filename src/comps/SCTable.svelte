@@ -6,7 +6,7 @@
 
     export let data;
     
-    let totals = data.map(calcTotals).sort((a, b) => a.total < b.total);
+    $: totals = data.map(calcTotals).sort((a, b) => a.total < b.total);
 </script>
 
 <DataTable table$aria-label="Aggregated Superchats" style="max-width: 100%">

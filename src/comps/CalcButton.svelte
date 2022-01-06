@@ -1,24 +1,29 @@
 <script>
+    import { createEventDispatcher } from 'svelte'; 
     import Button, { Label } from '@smui/button';
-    import CircularProgress from '@smui/circular-progress';
-    import { expand, getScData } from '../libs/extraction'
+    import { wait } from '../libs/utils';
     
-    export let value;
-    
-    let processing = false;
+    const dispatch = createEventDispatcher();
 
+    let running = false;
+    
     async function calc() {
-        processing = true;
-        await expand(document.getElementById('more-contents-button'));
-        value = getScData();
-        processing = false;
+        running = true;
+        let button = document.getElementById('more-contents-button');
+
+        while (window.location.pathname === '/paid_memberships') {
+            if (button.offsetParent) {
+                button.childNodes[0].click();
+                dispatch('update');
+            }
+            await wait(100);
+        }
+        running = false;
     }
 </script>
 
-{#if !processing}
+{#if !running}
 <Button on:click={calc} variant="raised">
         <Label>Calculate</Label>
 </Button>
-{:else}
-<CircularProgress style="height: 32px; width: 32px;" indeterminate />
 {/if}

@@ -5,23 +5,6 @@ import { wait, descendDOM, objToArray } from './utils';
  */
 export const getHeader = () => descendDOM(getContent(), [0]);
 
-/**
- * Repeatedly click a button element to expand the SC section.
- * @param {Element} button 
- */
-export async function expand(button) {
-    let counter = 0;
-
-    while (counter < 10) {
-        if (button.offsetParent) {
-            button.childNodes[0].click();
-            counter = 0;
-        } else counter++;
-
-        await wait(100);
-    }
-}
-
 export function getScData() {
     let scList = getSCs();
 
