@@ -50,3 +50,17 @@ export const trunc = (num, n) => {
 
     return point >= 0 ? num.slice(0, point + n) : num;
 }
+
+/**
+ * Summs over a array of numbers.
+ * @param {array} nums
+ * @returns sum over `nums`
+ */
+export const sum = nums => nums.reduce((acc, next) => acc + next, 0);
+
+/**
+ * Arrithmetic mean over the numbers in `nums`.
+ * @param {array} nums 
+ * @returns arrithmetic mean
+ */
+export const mean = nums => sum(nums) / nums.length;
