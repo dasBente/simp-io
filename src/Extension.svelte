@@ -10,11 +10,12 @@
         return node;
     }
 
-    let extension = addExtension();
+    let extension;
+    if (window.location.pathname === '/paid_memberships') extension = addExtension();
 
     if (!extension) document.addEventListener('yt-navigate-finish', () => {
-        if (!extension && window.location.pathname == '/paid_memberships') {
-            extension = addExtension();
+        if (!extension && window.location.pathname === '/paid_memberships') {
+            setTimeout(() => { extension = addExtension(); }, 500);
         }
     });
 </script>

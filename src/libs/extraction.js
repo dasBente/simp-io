@@ -41,7 +41,16 @@ export function getScData() {
 }
 
 // Returns content root
-const getContent = () => descendDOM(document.getElementById('primary'), [0, 3, 0, 5]);
+const getContent = () => {
+    let parent = document.getElementById('primary');
+
+    if (parent.offsetParent) {
+        return descendDOM(parent, [0, 3, 0, 5]);
+    }
+    
+    parent = document.getElementById('page-manager');
+    return descendDOM(parent, [3, 15, 1, 0, 3, 0, 5]);
+};
 
 const getSCs = () => descendDOM(getContent(), [1, 1, 5]);
 

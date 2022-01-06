@@ -13,7 +13,7 @@ export async function wait(ms) {
  * @param {array} childIndices list of n-th child to descend
  * @returns resulting node
  */
- export function descendDOM(source, childIndices = []) {
+export function descendDOM(source, childIndices = []) {
     if (!source) {
         console.error("Can't descend a undefined node!")
         return;
