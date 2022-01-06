@@ -1,4 +1,4 @@
-import { wait, descendDOM } from './utils';
+import { wait, descendDOM, objToArray } from './utils';
 
 /**
  * @returns header element of superchat section
@@ -75,5 +75,3 @@ const addToJson = (json, data) => {
 
     return { ...json, [channel]: ch };
 }
-
-const objToArray = obj => Object.keys(obj).map(k => obj[k]);

@@ -30,3 +30,10 @@ export async function wait(ms) {
 
     return node;
 }
+
+/**
+ * Turns input object into a array based on keys.
+ * @param {object} obj input object
+ * @returns array of object items in order of keys
+ */
+const objToArray = obj => Object.keys(obj).map(k => obj[k]);
