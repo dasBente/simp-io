@@ -1,15 +1,21 @@
 # simp.io
 Simple browser-extension to inflict maximum mental self damage. Generates a simple summary of all of your spending
 habits on YouTube.com via a simple widget added to the top of the purchase history page.  
-  
+
 Other features include the automatic expansion of your purchase history at the press of a button as well as
 exporting all your purchases into a detailed .csv file for further analysis if you so desire.  
-  
+
 **Disclaimer:** This code was cobbled together in the span of a couple of hours and I refuse to engage with it
 for any longer (at least for now), feel free to build on top of this if you want to.  
 Might break immediately whenever YouTube chooses to change part of their frontend. There might be easier methods
 than what I've used (scouring through the page HTML like a rat), but investing any more time than I already did
 for this felt wrong.
+
+## Build
+This extension can be built using Node.js (v14.15.0) and npm (6.14.8).  
+  
+Simply run `npm install` to install all dependencies followed by `npm run-script build` to
+generate the output code. A functional extension can now be found in the `public` directory.
 
 ## Usage
 This extension was tested on both FireFox (93.0) and Chrome (95.0.4638.54). Below are descriptions of how to load the
@@ -19,7 +25,7 @@ GitLab, you might need to unpack the project somewhere on your machine first.
 
 ### FireFox
 
-1. Open [the Firefox debugging page](about:debugging#/runtime/this-firefox) 
+1. Open [the Firefox debugging page](about:debugging#/runtime/this-firefox)
 2. click the top-right button "Load temporary Browser-Extension"
 3. Navigate to your downloaded and unpacked project
 4. Select any file inside the project
