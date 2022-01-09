@@ -48,7 +48,7 @@ export const trunc = (num, n) => {
     num = "" + num;
     let point = num.indexOf(".");
 
-    return point >= 0 ? num.slice(0, point + n) : num;
+    return point >= 0 ? num.slice(0, point + 1 + n) : num;
 }
 
 /**

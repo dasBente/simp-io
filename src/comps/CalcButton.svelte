@@ -11,13 +11,20 @@
         running = true;
         let button = document.getElementById('more-contents-button');
 
-        while (window.location.pathname === '/paid_memberships') {
-            if (button.offsetParent) {
-                button.childNodes[0].click();
-                dispatch('update');
+        if (button) {
+            let timer = setInterval(() => dispatch('update'), 1000);
+            
+            // auto-expand page
+            while (window.location.pathname === '/paid_memberships') {
+                if (button.offsetParent) button.childNodes[0].click();
+                await wait(100);
             }
-            await wait(100);
+
+            clearInterval(timer);
+        } else {
+            dispatch('update');
         }
+
         running = false;
     }
 </script>
