@@ -1,25 +1,29 @@
-<script>
-    import DataTable, { Head, Row, Cell, Body } from '@smui/data-table';
-
-    import { calcTotals } from '../libs/aggregate'
-    import { trunc } from '../libs/utils'
-
-    export let data;
-    
-    $: totals = data.map(calcTotals).sort((a, b) => a.data.total < b.data.total);
-</script>
-
-<DataTable table$aria-label="Aggregated Superchats" style="max-width: 100%">
+<DataTable
+    table$aria-label="Aggregated Superchats" style="max-width: 100%"
+    sortable bind:sort bind:sortDirection
+>
     <Head>
         <Row>
-            <Cell>Channel</Cell>
-            <Cell>Number of Superchats</Cell>
-            <Cell>Total Money Spent</Cell>
-            <Cell>Average Superchat</Cell>
+            <Cell columnId="name">
+                Channel
+                <IconButton class="material-icons">arrow_upward</IconButton>
+            </Cell>
+            <Cell columnId="count" numeric>
+                Number of Superchats
+                <IconButton class="material-icons">arrow_upward</IconButton>
+            </Cell>
+            <Cell columnId="total" numeric>
+                Total Money Spent
+                <IconButton class="material-icons">arrow_upward</IconButton>
+            </Cell>
+            <Cell columnId="mean" numeric>
+                Average Superchat
+                <IconButton class="material-icons">arrow_upward</IconButton>
+            </Cell>
         </Row>
     </Head>
     <Body>
-        {#each totals as t}
+        {#each data as t}
         <Row>
             <Cell>{t.name}</Cell>
             <Cell>{t.data.count}</Cell>
@@ -29,3 +33,15 @@
         {/each}
     </Body>
 </DataTable>
+
+<script>
+    import DataTable, { Head, Row, Cell, Body, SortVlaue } from '@smui/data-table';
+    import IconButton from '@smui/icon-button';
+
+    import { calcTotals } from '../libs/aggregate'
+    import { trunc } from '../libs/utils'
+
+    export let data;
+
+    var sort, sortDirection;
+</script>
