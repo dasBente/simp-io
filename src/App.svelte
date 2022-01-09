@@ -4,15 +4,11 @@
     import { getScData } from './libs/extraction';
 
     let data = [];
-
-    function updateData() {
-        data = getScData();
-    }
 </script>
 
 
 <div style="margin-bottom: 1em;">
-    <CalcButton on:update={updateData} />
+    <CalcButton on:update={() => data = getScData()} />
 </div>
 
 {#if data.length > 0}
