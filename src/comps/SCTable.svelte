@@ -1,29 +1,32 @@
-<DataTable
-    table$aria-label="Aggregated Superchats" style="max-width: 100%"
-    sortable bind:sort bind:sortDirection
->
+<script>
+    import DataTable, { Head, Row, Cell, Body } from '@smui/data-table';
+    import Button from '@smui/button';
+    import HeaderCell from './HeaderCell.svelte';
+
+    import { calcTotals } from '../libs/aggregate'
+    import { trunc } from '../libs/utils'
+
+    export let data;
+
+    let sortBy = 'total';
+
+    const sortFn = key => (a, b) => key === 'channel'
+        ? a.name > b.name : a.data[key] < b.data[key];
+    
+    $: totals = data.map(calcTotals).sort(sortFn(sortBy));
+</script>
+
+<DataTable table$aria-label="Aggregated Superchats" style="max-width: 100%">
     <Head>
         <Row>
-            <Cell columnId="name">
-                Channel
-                <IconButton class="material-icons">arrow_upward</IconButton>
-            </Cell>
-            <Cell columnId="count" numeric>
-                Number of Superchats
-                <IconButton class="material-icons">arrow_upward</IconButton>
-            </Cell>
-            <Cell columnId="total" numeric>
-                Total Money Spent
-                <IconButton class="material-icons">arrow_upward</IconButton>
-            </Cell>
-            <Cell columnId="mean" numeric>
-                Average Superchat
-                <IconButton class="material-icons">arrow_upward</IconButton>
-            </Cell>
+            <HeaderCell bind:sortBy label="Channel" id="channel" />
+            <HeaderCell bind:sortBy label="# Superchats" id="count" />
+            <HeaderCell bind:sortBy label="Σ Superchats" id="total" />
+            <HeaderCell bind:sortBy label="Ø Superchat" id="mean" />
         </Row>
     </Head>
     <Body>
-        {#each data as t}
+        {#each totals as t}
         <Row>
             <Cell>{t.name}</Cell>
             <Cell>{t.data.count}</Cell>
@@ -33,15 +36,3 @@
         {/each}
     </Body>
 </DataTable>
-
-<script>
-    import DataTable, { Head, Row, Cell, Body, SortVlaue } from '@smui/data-table';
-    import IconButton from '@smui/icon-button';
-
-    import { calcTotals } from '../libs/aggregate'
-    import { trunc } from '../libs/utils'
-
-    export let data;
-
-    var sort, sortDirection;
-</script>
