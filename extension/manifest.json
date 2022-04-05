@@ -6,12 +6,5 @@
     "icons": {
         "48": "icons/48.png",
         "96": "icons/96.png"
-    },
-    "content_scripts": [
-        {
-            "matches": ["*://*.youtube.com/*"],
-            "js": ["build/bundle.js"],
-            "css": ["lib/css/bare.css"]
-        }
-    ]
+    }
 }
