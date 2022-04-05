@@ -3,6 +3,9 @@
     "name": "simp.io",
     "version": "0.2.2",
     "description": "Summarizes payments on the YouTube payment page.",
+    "permissions": [
+        "tabs"
+    ],
     "icons": {
         "48": "icons/48.png",
         "96": "icons/96.png"
