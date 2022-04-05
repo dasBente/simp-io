@@ -6,5 +6,13 @@
     "icons": {
         "48": "icons/48.png",
         "96": "icons/96.png"
+    },
+    "browser_action": {
+        "default_icon": {
+            "19": "icons/19.png",
+            "38": "icons/38.png"
+        },
+        "default_title": "simp-io",
+        "default_popup": "popup.html"
     }
 }
