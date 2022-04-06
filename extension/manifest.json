@@ -22,5 +22,11 @@
         },
         "default_title": "simp-io",
         "default_popup": "popup.html"
-    }
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://*.youtube.com/paid_membership*"],
+            "js": ["build/content/bundle.js"]
+        }
+    ]
 }
