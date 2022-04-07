@@ -4,11 +4,11 @@
     "version": "0.2.2",
     "description": "Summarizes payments on the YouTube payment page.",
     "permissions": [
-        "tabs"
+        "tabs", "storage"
     ],
     "background": {
         "scripts": [
-            "build/background/bundle.js"
+            "background.js"
         ]
     },
     "icons": {
@@ -26,7 +26,7 @@
     "content_scripts": [
         {
             "matches": ["*://*.youtube.com/paid_membership*"],
-            "js": ["build/content/bundle.js"]
+            "js": ["content.js"]
         }
     ]
 }
