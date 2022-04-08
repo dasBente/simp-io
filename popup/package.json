@@ -10,9 +10,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
-    "@smui/button": "^6.0.0-beta.11",
-    "@smui/circular-progress": "^6.0.0-beta.13",
-    "@smui/data-table": "^6.0.0-beta.11",
+    "milligram": "^1.4.1",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
@@ -21,7 +19,6 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
-    "sirv-cli": "^1.0.0",
-    "svelte-material-ui": "^6.0.0-beta.13"
+    "sirv-cli": "^2.0.0"
   }
 }
