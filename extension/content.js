@@ -1,10 +1,10 @@
 setTimeout(run, 2000);
 
 async function run() {
-    await expand();
+    let res = await browser.runtime.sendMessage({ id: 'fingerprint', data: getScData() });
+    if (res) return;
 
-    let fingerprint = getScData();
-    // TODO: compare this with backend to check if update is necessary
+    await expand();
 
     let data = getScData();
     browser.runtime.sendMessage({ id: 'saveScore', data });
