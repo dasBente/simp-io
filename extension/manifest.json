@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "simp.io",
-    "version": "0.2.2",
+    "version": "0.3.0",
     "description": "Summarizes payments on the YouTube payment page.",
     "permissions": [
         "tabs", "storage"
