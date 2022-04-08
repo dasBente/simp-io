@@ -4,7 +4,9 @@
     const fetch = async () => await browser.runtime.sendMessage({ id: 'getScore' });
 </script>
 
-<style>p { width: 200px; }</style>
+<style>
+main { width: 500px; }
+</style>
 
 <main>
     {#await fetch() then data}
