@@ -1,9 +1,6 @@
 <script>
     export let channel;
-
-    let { name, icon, data } = channel;
-    let sum = data.map(d => d.price.amount).reduce((acc, next) => acc + next, 0);
-    let symbol = data[0].price.symbol;
+    let { name, icon, total, count, mean } = channel;
 </script>
 
 <style>
@@ -13,5 +10,7 @@
 <tr>
     <td>{#if icon}<img src="{icon}" alt="Channel icon for {name}">{/if}</td>
     <td>{name}</td>
-    <td>{sum} {symbol}</td>
+    <td>{total}</td>
+    <td>{count}</td>
+    <td>{mean}</td>
 </tr>
