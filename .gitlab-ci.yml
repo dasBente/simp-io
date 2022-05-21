@@ -8,10 +8,15 @@ stages:
 build-job:
   stage: build
   script:
-    - npm install
+    - npm ci --cache .npm --prefer-offline
   cache:
+    key: NPM_DOWNLOAD_CACHE
+    paths:
+      - .npm/
+  artifacts: 
     paths:
       - 'node_modules'
+    expire_in: 30 minutes
 
 release-chrome-job:
   stage: release
