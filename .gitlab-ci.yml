@@ -35,9 +35,9 @@ zip-source:
   script:
     - apk update
     - apk add --upgrade zip
-    - zip -r source.zip .
+    - zip -r source.zip . -x *.git* *.idea
   artifacts:
-    expire_in: 1 week
+    expire_in: 1 day
     paths:
       - source.zip
 
