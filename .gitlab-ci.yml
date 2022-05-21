@@ -3,14 +3,30 @@ default:
 
 stages:
   - build
+  - release
 
 build-job:
   stage: build
   script:
     - npm install
-    - npm run build
-  artifacts:
-    untracked: false
-    expire_in: 30 days
+  cache:
     paths:
-      - ./extension
+      - 'node_modules'
+
+release-chrome-job:
+  stage: release
+  script:
+    - npm run build-chrome
+  artifacts:
+    paths:
+      - dist/chrome
+    expire_in: 1 week
+
+release-firefox-job:
+  stage: release
+  script:
+    - npm run build-chrome
+  artifacts:
+    paths:
+      - dist/firefox
+    expire_in: 1 week
