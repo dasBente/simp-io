@@ -53,7 +53,7 @@ release-chrome-job:
 release-firefox-job:
   stage: release
   script:
-    - npm run build-chrome
+    - npm run build-firefox
   artifacts:
     paths:
       - dist/firefox.zip
