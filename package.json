@@ -6,9 +6,11 @@
     "copy-static": "node ./scripts/copy-static.js",
     "build": "npm run copy-static && rollup -c",
     "dev": "npm run copy-static && rollup -c -w",
+
     "copy-polyfill": "node ./scripts/copy-polyfill.js",
     "chrome-deps": "npm run copy-polyfill && node ./scripts/create-manifest.js 3",
     "build-chrome": "npm run build && npm run chrome-deps",
+
     "firefox-deps": "node ./scripts/create-manifest.js 2",
     "build-firefox": "npm run build && npm run firefox-deps"
   },

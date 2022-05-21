@@ -14,8 +14,24 @@ for this felt wrong.
 ## Build
 This extension can be built using Node.js (v14.15.0) and npm (6.14.8).  
   
-Simply run `npm install` to install all dependencies followed by `npm run-script build` to
-generate the output code. A functional extension can now be found in the `public` directory.
+Simply run `npm install` to install all dependencies followed by `npm run build-chrome` or `npm run build-firefox`
+depending on the desired production build.
+
+## Scripts
+
+Main scripts:
+
+* `npm run dev` Runs the project in development mode, run either `chrome-deps` or `firefox-deps` beforehand to
+  initialize platform-specific files
+* `npm run build-firefox` Generates a production build of a Firefox browser plugin in `dist`
+* `npm run build-chrome` Generates a production build of a Chrome browser plugin in `dist`
+
+Auxiliary scripts:
+
+* `npm run firefox-deps` Generates dependencies for a Firefox plugin
+* `npm run chrome-deps` Generates dependencies for a Chrome plugin
+* `npm run copy-static` Copies static files into `dist`
+* `npm run copy-polyfill` Copies polyfill for Firefox features needed in Chrome build
 
 ## Usage
 This extension was tested on both FireFox (93.0) and Chrome (95.0.4638.54). Below are descriptions of how to load the
