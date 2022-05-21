@@ -2,7 +2,7 @@ let handlers = {
     saveScore: async function (data) {
         await browser.storage.local.set({ results: data });
     },
-    getScore: async function (_, _) {
+    getScore: async function (_1, _2) {
         return await browser.storage.local.get('results');
     },
     fingerprint: async function (data, _) {

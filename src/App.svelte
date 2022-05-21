@@ -1,5 +1,5 @@
 <script>
-    import Table from './table/index.svelte';
+    import Table from './components/Table.svelte';
     import { payments } from './stores/payments';
 </script>
 
@@ -13,7 +13,7 @@ main { width: 800px; }
     {:else}
         <h4>No data</h4>
         <p>
-            Please visit the 
+            Please visit the
             <a href="https://www.youtube.com/paid_memberships">YouTube Payment Page</a>
                 to allow simp-io to collect the necessary data for operation.
         </p>
