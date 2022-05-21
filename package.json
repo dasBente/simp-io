@@ -3,16 +3,11 @@
   "version": "0.3.3",
   "description": "Simple browser-extension to inflict maximum mental self damage. Generates a simple summary of all of your spending\r habits on YouTube.com via a simple widget added to the top of the purchase history page.",
   "scripts": {
-    "copy-static": "node ./scripts/copy-static.js",
-    "build": "npm run copy-static && rollup -c",
-    "dev": "npm run copy-static && rollup -c -w",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
 
-    "copy-polyfill": "node ./scripts/copy-polyfill.js",
-    "chrome-deps": "npm run copy-polyfill && node ./scripts/create-manifest.js 3",
-    "build-chrome": "npm run build && npm run chrome-deps",
-
-    "firefox-deps": "node ./scripts/create-manifest.js 2",
-    "build-firefox": "npm run build && npm run firefox-deps"
+    "build-firefox": "npm run build && node scripts/build-firefox.js",
+    "build-chrome": "npm run build && node scripts/build-chrome.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",

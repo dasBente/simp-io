@@ -19,19 +19,10 @@ depending on the desired production build.
 
 ## Scripts
 
-Main scripts:
-
-* `npm run dev` Runs the project in development mode, run either `chrome-deps` or `firefox-deps` beforehand to
-  initialize platform-specific files
-* `npm run build-firefox` Generates a production build of a Firefox browser plugin in `dist`
-* `npm run build-chrome` Generates a production build of a Chrome browser plugin in `dist`
-
-Auxiliary scripts:
-
-* `npm run firefox-deps` Generates dependencies for a Firefox plugin
-* `npm run chrome-deps` Generates dependencies for a Chrome plugin
-* `npm run copy-static` Copies static files into `dist`
-* `npm run copy-polyfill` Copies polyfill for Firefox features needed in Chrome build
+* `npm run build` Compiles a production build of the project's code in `extension/build`
+* `npm run dev` Runs the project in development mode in `extension`, Firefox by default
+* `npm run build-firefox` Generates a production build of a Firefox browser plugin in `dist/firefox`
+* `npm run build-chrome` Generates a production build of a Chrome browser plugin in `dist/chrome`
 
 ## Usage
 This extension was tested on both FireFox (93.0) and Chrome (95.0.4638.54). Below are descriptions of how to load the

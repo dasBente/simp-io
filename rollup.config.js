@@ -14,7 +14,7 @@ export default [
 			sourcemap: true,
 			format: 'iife',
 			name: 'popup',
-			file: './dist/build/popup-bundle.js'
+			file: './extension/build/popup-bundle.js'
 		},
 		plugins: [
 			svelte({
@@ -51,7 +51,7 @@ export default [
 			sourcemap: true,
 			format: 'iife',
 			name: 'background',
-			file: './dist/build/background.js'
+			file: './extension/build/background.js'
 		},
 		plugins: [
 			resolve({ browser: true }),
@@ -70,7 +70,7 @@ export default [
 			sourcemap: true,
 			format: 'iife',
 			name: 'content',
-			file: './dist/build/content.js'
+			file: './extension/build/content.js'
 		},
 		plugins: [
 			resolve({ browser: true }),
