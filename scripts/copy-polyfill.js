@@ -4,7 +4,7 @@ const path = require('path');
 let nodeModules = path.join('.', 'node_modules')
 
 if (fs.existsSync(nodeModules)) {
-    let build = path.join('.', 'extension', 'build');
+    let build = path.join('.', 'dist', 'build');
 
     if (!fs.existsSync(build)) fs.mkdirSync(build);
 

@@ -1,23 +1,29 @@
 {
   "name": "simp-io",
-  "version": "0.3.0",
+  "version": "0.3.3",
   "description": "Simple browser-extension to inflict maximum mental self damage. Generates a simple summary of all of your spending\r habits on YouTube.com via a simple widget added to the top of the purchase history page.",
   "scripts": {
+    "copy-static": "node ./scripts/copy-static.js",
+    "build": "npm run copy-static && rollup -c",
+    "dev": "npm run copy-static && rollup -c -w",
     "copy-polyfill": "node ./scripts/copy-polyfill.js",
-    "build": "npm run copy-polyfill && rollup -c",
-    "dev": "npm run copy-polyfill && rollup -c -w"
+    "chrome-deps": "npm run copy-polyfill && node ./scripts/create-manifest.js 3",
+    "build-chrome": "npm run build && npm run chrome-deps",
+    "firefox-deps": "node ./scripts/create-manifest.js 2",
+    "build-firefox": "npm run build && npm run firefox-deps"
   },
   "devDependencies": {
-    "webextension-polyfill": "^0.9.0",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "currency.js": "^2.0.4",
+    "fs-extra": "^10.1.0",
     "milligram": "^1.4.1",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.0",
-    "svelte": "^3.0.0"
+    "svelte": "^3.0.0",
+    "webextension-polyfill": "^0.9.0"
   }
 }
