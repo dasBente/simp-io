@@ -1,10 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 
-function updateManifest(update = {}) {
+function updateManifest(updater) {
     const manifestJson = JSON.parse(fs.readFileSync(manifest, {encoding:'utf8', flag:'r'}));
-    let updated = {...manifestJson, version: process.env.npm_package_version, ...update}
-    fs.writeFileSync(manifest, JSON.stringify(updated));
+    manifestJson.version = process.env.npm_package_version;
+
+    if (updater) updater(manifestJson);
+    fs.writeFileSync(manifest, JSON.stringify(manifestJson));
 }
 
 const fse = require('fs-extra');

@@ -1,3 +1,5 @@
+console.log("Content Script is alive");
+
 setTimeout(run, 2000);
 
 async function run() {

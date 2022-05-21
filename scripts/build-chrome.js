@@ -2,7 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const {updateManifest, exportBuild, dirToZip} = require('./build-functions');
 
-updateManifest({manifest_version: '3'});
+updateManifest(manifest => {
+    manifest.manifest_version = 3;
+    manifest.background.scripts.push('build/browser-polyfill.min.js');
+    manifest.content_scripts.js.push('build/browser-polyfill.min.js');
+});
 
 const dist = path.join('dist');
 const target = path.join(dist, 'chrome');

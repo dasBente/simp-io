@@ -7,6 +7,7 @@
 
 <style>
     table { width: 800px; }
+    img { border-radius: 50%; }
 </style>
 
 <table>
