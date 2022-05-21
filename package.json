@@ -1,23 +1,26 @@
 {
   "name": "simp-io",
-  "version": "0.3.0",
+  "version": "0.3.3",
   "description": "Simple browser-extension to inflict maximum mental self damage. Generates a simple summary of all of your spending\r habits on YouTube.com via a simple widget added to the top of the purchase history page.",
   "scripts": {
-    "copy-polyfill": "node ./scripts/copy-polyfill.js",
-    "build": "npm run copy-polyfill && rollup -c",
-    "dev": "npm run copy-polyfill && rollup -c -w"
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "build-firefox": "npm run build && node scripts/build-firefox.js",
+    "build-chrome": "npm run build && node scripts/build-chrome.js"
   },
   "devDependencies": {
-    "webextension-polyfill": "^0.9.0",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
+    "archiver": "^5.3.1",
     "currency.js": "^2.0.4",
+    "fs-extra": "^10.1.0",
     "milligram": "^1.4.1",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.0",
-    "svelte": "^3.0.0"
+    "svelte": "^3.0.0",
+    "webextension-polyfill": "^0.9.0"
   }
 }
