@@ -13,7 +13,7 @@ async function run() {
 async function expand() {
     let button = document.getElementById('more-contents-button');
     let limit = 0;
-    
+
     while (limit < 50) {
         if (button.offsetParent) {
             limit = 0;
@@ -57,10 +57,10 @@ function getContent() {
     if (parent.offsetParent) {
         return descendDOM(parent, [0, 3, 0, 5]);
     }
-    
+
     parent = document.getElementById('page-manager');
     return descendDOM(parent, [3, 15, 1, 0, 3, 0, 5]);
-};
+}
 
 function getSCs() {
     return descendDOM(getContent(), [1, 1, 5]);
@@ -104,7 +104,7 @@ function addToJson(json, data) {
 
     return { ...json, [channel]: ch };
 }
- 
+
 /**
  * Wait for a certain amount of time.
  * @param {Number} ms wait time (in ms)
@@ -171,7 +171,7 @@ function sum(nums) {
 
 /**
  * Arrithmetic mean over the numbers in `nums`.
- * @param {array} nums 
+ * @param {array} nums
  * @returns arrithmetic mean
  */
 function mean(nums) {

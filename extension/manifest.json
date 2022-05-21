@@ -1,14 +1,15 @@
 {
     "manifest_version": 2,
     "name": "simp.io",
-    "version": "0.3.0",
+    "version": "0.3.2",
     "description": "Summarizes payments on the YouTube payment page.",
     "permissions": [
-        "tabs", "storage"
+        "storage"
     ],
     "background": {
         "scripts": [
-            "background.js"
+            "lib/browser-polyfill.min.js",
+            "build/background.js"
         ]
     },
     "icons": {
@@ -26,7 +27,10 @@
     "content_scripts": [
         {
             "matches": ["*://*.youtube.com/paid_membership*"],
-            "js": ["content.js"]
+            "js": [
+                "build/browser-polyfill.min.js",
+                "build/content.js"
+            ]
         }
     ]
 }
