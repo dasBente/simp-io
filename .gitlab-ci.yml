@@ -35,7 +35,7 @@ zip-source:
   script:
     - apk update
     - apk add --upgrade zip
-    - zip source.zip .
+    - zip -r source.zip .
   artifacts:
     expire_in: 1 week
     paths:
