@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const {updateManifest, exportBuild} = require('./build-functions');
+const {updateManifest, exportBuild, dirToZip} = require('./build-functions');
 
 updateManifest({manifest_version: '3'});
 
@@ -21,3 +21,5 @@ if (fs.existsSync(nodeModules)) {
 } else {
     console.error("No node_modules, run `npm install` first!");
 }
+
+dirToZip(target);

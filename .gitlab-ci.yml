@@ -29,13 +29,25 @@ install-dependencies:
     paths:
       - node_modules
 
+# mozilla requires a zip of the source code to be given for projects that use bundlers like rollup
+zip-source:
+  stage: setup
+  script:
+    - apk update
+    - apk add --upgrade zip
+    - zip source.zip .
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - source.zip
+
 release-chrome-job:
   stage: release
   script:
     - npm run build-chrome
   artifacts:
     paths:
-      - dist/chrome
+      - dist/chrome.zip
     expire_in: 1 week
 
 release-firefox-job:
@@ -44,5 +56,5 @@ release-firefox-job:
     - npm run build-chrome
   artifacts:
     paths:
-      - dist/firefox
+      - dist/firefox.zip
     expire_in: 1 week
