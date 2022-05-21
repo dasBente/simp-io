@@ -1,0 +1,13 @@
+stages:
+  - build
+
+build-job:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    untracked: false
+    expire_in: 30 days
+    paths:
+      - ./extension
