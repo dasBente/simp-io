@@ -16,7 +16,9 @@ export const stats = derived(payments, $payments => $payments.map(d => {
     let count = prices.length;
     let mean = currency(total).divide(count).format({ symbol });
 
-    return { ...d, data: undefined, total, mean, count, symbol };
+    let {data, ...rest} = d;
+
+    return { ...rest, total, mean, count, symbol };
 }));
 
 export const summary = derived(stats, $stats => {
