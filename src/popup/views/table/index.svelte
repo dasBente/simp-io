@@ -1,6 +1,6 @@
 <script>
-    import { stats } from '../../../stores/payments';
-    import { summary } from '../../../stores/payments';
+    import { stats } from '../../stores/payments';
+    import { summary } from '../../stores/payments';
     import currency from 'currency.js';
     import Entry from "./Entry.svelte";
     import ExportButton from "./ExportButton.svelte";

@@ -1,12 +1,19 @@
 <script>
     import Notice from "./Notice.svelte";
-
-    ;
-    import { payments } from '../stores/payments';
+    import {payments} from './stores/payments';
+    import {processing} from "./stores/application";
     import Layout from "./views/Layout.svelte";
+    import MessageListener from "./handlers/MessageListener.svelte";
+    import Spinner from "./Spinner.svelte";
+
+    $: browser.runtime.sendMessage({id: 'checkProgress'}).then(res => processing.set(res));
 </script>
 
-{#if $payments}
+<MessageListener />
+
+{#if $processing}
+    <Spinner />
+{:else if $payments}
     <Layout />
 {:else}
     <Notice />

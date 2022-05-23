@@ -9,7 +9,7 @@ const production = !process.env.ROLLUP_WATCH;
 export default [
 	/** Pop-up **/
 	{
-		input: 'src/popup-main.js',
+		input: 'src/popup/main.js',
 		output: {
 			sourcemap: true,
 			format: 'iife',
@@ -46,7 +46,7 @@ export default [
 
 	/** Background Script **/
 	{
-		input: 'src/background-main.js',
+		input: 'src/background/main.js',
 		output: {
 			sourcemap: true,
 			format: 'iife',
