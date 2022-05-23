@@ -1,5 +1,5 @@
 <script>
-    import Table from "./Table.svelte";
+    import Table from "./table/index.svelte";
 </script>
 
 <main>
