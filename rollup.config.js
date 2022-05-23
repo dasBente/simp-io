@@ -9,12 +9,12 @@ const production = !process.env.ROLLUP_WATCH;
 export default [
 	/** Pop-up **/
 	{
-		input: 'src/popup-main.js',
+		input: 'src/popup/main.js',
 		output: {
 			sourcemap: true,
 			format: 'iife',
 			name: 'popup',
-			file: './extension/build/popup-bundle.js'
+			file: './extension_template/default/build/popup-bundle.js'
 		},
 		plugins: [
 			svelte({
@@ -46,12 +46,12 @@ export default [
 
 	/** Background Script **/
 	{
-		input: 'src/background-main.js',
+		input: 'src/background/main.js',
 		output: {
 			sourcemap: true,
 			format: 'iife',
 			name: 'background',
-			file: './extension/build/background.js'
+			file: './extension_template/default/build/background.js'
 		},
 		plugins: [
 			resolve({ browser: true }),
@@ -70,7 +70,7 @@ export default [
 			sourcemap: true,
 			format: 'iife',
 			name: 'content',
-			file: './extension/build/content.js'
+			file: './extension_template/default/build/content.js'
 		},
 		plugins: [
 			resolve({ browser: true }),

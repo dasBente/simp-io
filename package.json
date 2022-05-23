@@ -1,6 +1,6 @@
 {
   "name": "simp-io",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "Simple browser-extension to inflict maximum mental self damage. Generates a simple summary of all of your spending\r habits on YouTube.com via a simple widget added to the top of the purchase history page.",
   "scripts": {
     "build": "rollup -c",
@@ -15,6 +15,7 @@
     "currency.js": "^2.0.4",
     "fs-extra": "^10.1.0",
     "milligram": "^1.4.1",
+    "moment": "^2.29.3",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",

@@ -1,5 +1,5 @@
 /node_modules/
 /dist/
-/extension/build/
+/extension_template/default/build/
 
 .DS_Store
