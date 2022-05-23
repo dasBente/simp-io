@@ -3,6 +3,7 @@
     import { summary } from '../../../stores/payments';
     import currency from 'currency.js';
     import Entry from "./Entry.svelte";
+    import ExportButton from "./ExportButton.svelte";
 
     stats.subscribe(s => console.log(s))
 
@@ -19,6 +20,7 @@
 
 <div class="data-row" style="padding-top: 8px; background: black; color: white;">
     <Entry {...$summary} />
+    <ExportButton />
 </div>
 
 <style>
