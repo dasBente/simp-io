@@ -9,7 +9,7 @@
 </div>
 
 <div class="stats">
-    {#if name}<span class="name"><b>{name}</b></span>{/if}
+    {#if name}<span class="name">{name}</span>{/if}
     <span>
         Spent
         <b>{total}</b> in
@@ -29,6 +29,10 @@
         justify-content: center;
     }
 
+    b {
+        color: orangered;
+    }
+
     .stats {
         display: flex;
         flex-direction: column;
@@ -37,5 +41,6 @@
 
     .name {
         font-size: 20px;
+        font-weight: bolder;
     }
 </style>
