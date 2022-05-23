@@ -50,11 +50,11 @@ release-chrome-job:
       - dist/chrome.zip
     expire_in: 1 week
 
-release-firefox-job:
+release-default-job:
   stage: release
   script:
     - npm run build-firefox
   artifacts:
     paths:
-      - dist/firefox.zip
+      - dist/default.zip
     expire_in: 1 week
