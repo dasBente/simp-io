@@ -20,7 +20,7 @@
 
 <div class="data-row" style="padding-top: 8px; background: black; color: white;">
     <Entry {...$summary} />
-    <ExportButton />
+    <ExportButton data={$stats}/>
 </div>
 
 <style>
