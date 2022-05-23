@@ -5,21 +5,36 @@
     import Entry from "./Entry.svelte";
     import ExportButton from "./ExportButton.svelte";
 
-    stats.subscribe(s => console.log(s))
+    let sortBy = 'total';
 
-    const sorted = stats => stats.sort((a, b) => currency(a.total).value < currency(b.total).value);
+    const selectSort = mode => {
+        switch (mode) {
+            case 'total':
+                return $stats.sort((a, b) => currency(a.total).value < currency(b.total).value);
+            case 'name':
+                return $stats.sort((a, b) => a.name < b.name);
+            case 'count':
+                return $stats.sort((a, b) => a.count < b.count);
+            case 'mean':
+                return $stats.sort((a, b) => currency(a.mean).value < currency(b.mean).value);
+            default:
+                return selectSort('total');
+        }
+    }
+
+    $: sorted = selectSort(sortBy);
 </script>
 
 <ul>
-    {#each sorted($stats) as s, i}
+    {#each sorted as s, i}
         <li class="data-row" class:striped={i % 2 === 1}>
-            <Entry {...s} />
+            <Entry {...s} bind:sortBy={sortBy} />
         </li>
     {/each}
 </ul>
 
 <div class="data-row" style="padding-top: 8px; background: black; color: white;">
-    <Entry {...$summary} />
+    <Entry {...$summary} bind:sortBy={sortBy} />
     <ExportButton data={$stats}/>
 </div>
 
