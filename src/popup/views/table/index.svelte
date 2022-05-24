@@ -35,7 +35,7 @@
 
 <div class="data-row" style="padding-top: 8px; background: black; color: white;">
     <Entry {...$summary} bind:sortBy={sortBy} />
-    <ExportButton data={$stats}/>
+    <ExportButton />
 </div>
 
 <style>
