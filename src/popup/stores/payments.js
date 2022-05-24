@@ -1,4 +1,5 @@
 import { readable, derived } from 'svelte/store';
+import moment from 'moment';
 import currency from 'currency.js';
 
 export const payments = readable(undefined, set => {
@@ -31,3 +32,19 @@ export const summary = derived(stats, $stats => {
 
     return { total, count, mean };
 });
+
+const toDate = str => moment(str, 'YYYY-MM-DD').toDate();
+
+/**
+ * Returns all superchats as a list sorted by date of the payment.
+ * @type {Readable<unknown>}
+ */
+export const calendar = derived(
+    payments,
+    $payments => $payments
+        .map(ch => ch.data
+            .map(d => ({...d, date: toDate(d.date), name: ch.name, price: d.price.symbol + d.price.amount})))
+        .reduce((acc, next) => acc.concat(next), [])
+        .sort((a, b) => a.date < b.date)
+);
+

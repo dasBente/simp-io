@@ -1,5 +1,6 @@
 <script>
-    import {stats} from '../../stores/payments';
+    import {calendar} from '../../stores/payments';
+    console.log($calendar);
 </script>
 
 <div>
