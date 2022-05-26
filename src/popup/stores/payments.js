@@ -45,8 +45,7 @@ export const calendar = derived(
         .sort((a, b) => a.date < b.date)
 );
 
-export const paymentsByDay = derived(calendar, $calendar =>
-    $calendar.reduce((acc, {date, ...rest}) => ({...acc, [date]: acc[date] ? [...acc[date], rest] : [rest]}), {})
-);
+export const paymentsByDay = derived(calendar, $calendar => $calendar
+        .reduce((acc, {date, ...rest}) => ({...acc, [date]: acc[date] ? [...acc[date], rest] : [rest]}), {}));
 
 export const years = derived(calendar, $calendar => Array.from(new Set($calendar.map(d => d.date.slice(0, 4)))));
