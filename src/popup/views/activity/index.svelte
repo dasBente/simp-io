@@ -19,11 +19,18 @@
     </svg>
 
     <footer>
-
+        <select bind:value={view}>
+            {#each dataViews as v, i}
+                <option value={i}>{v.title}</option>
+            {/each}
+        </select>
     </footer>
 </div>
 
 <style>
+    select { color: white; height: 38px; width: 200px; margin: 0; padding: 0; appearance: none; }
+    option { color: black; }
+
     div {
         height: 510px;
         width: 100%;
@@ -34,6 +41,7 @@
     footer {
         width: 100%;
         height: 50px;
+        padding: 4px;
         color: white;
         background: black;
     }
