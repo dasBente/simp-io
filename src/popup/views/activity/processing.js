@@ -22,14 +22,11 @@ export const datesForVisualization = (year = false, weekStack = 2) => {
     let end = year ? moment(`${year}-12-31`) : moment();
     let start = moment(end).add(-1, 'year');
 
-    console.log(end);
-    console.log(start);
-
     return dateRange(start, end).map((d, i) => {
         let day = moment(d);
 
         return {
-            day: day.toDate(), month: day.month(), year: day.year(),
+            day: day.date(), month: day.month(), year: day.year(),
             week: Math.floor((i + start.weekday()) / (7 * weekStack)),
             weekday: (i + start.weekday()) % (7 * weekStack),
             date: day.format('YYYY-MM-DD'),

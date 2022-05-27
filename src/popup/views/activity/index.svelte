@@ -1,21 +1,20 @@
 <script>
-    import {years} from '../../stores/payments';
-    import {paymentsByDay} from "../../stores/payments";
-    import currency from "currency.js";
+    import {paymentsByDay, years} from '../../stores/payments';
     import Range from "./Range.svelte";
+    import dataViews from "./dataViews";
+    import {datesForVisualization} from "./processing";
 
-    let year = $years[1];
+    let view = 0;
+    let year = false;
 
-    const processing = date => {
-        if (!(date in $paymentsByDay)) return 0;
-        return $paymentsByDay[date].map(p => currency(p.price).value).reduce((acc, next) => acc + next);
-    }
+    let range = datesForVisualization(year);
+    let data = range.map(d => $paymentsByDay[d.date] || []);
 </script>
 
 <div>
     <svg>
-        <g transform="translate(0, -20)">
-            <Range {year} {processing} />
+        <g transform="translate(0,60)">
+            <Range view={dataViews[view]} {range} {data} />
         </g>
     </svg>
 
