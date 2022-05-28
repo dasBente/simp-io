@@ -1,5 +1,7 @@
 <script>
-    export let day, month, year, monthOff, pad, yearOff, xScale, week;
+    export let date, xScale, pad;
+
+    let {day, month, year, monthOff, yearOff, week} = date;
 
     let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
