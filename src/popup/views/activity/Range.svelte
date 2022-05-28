@@ -4,12 +4,8 @@
     import Weekdays from "./Weekdays.svelte";
     import MonthLabels from "./MonthLabels.svelte";
     import Day from './Day.svelte';
-    import {applyView} from "./dataViews";
 
     export let view = {}, range = [], data = [];
-
-    let {colors} = applyView(data, view);
-    console.log(colors);
 
     let monthPad = 3;
 
@@ -22,5 +18,5 @@
 
 {#each range as date, i}
     <MonthLabels {date} {xScale} pad={monthPad} />
-    <Day {date} {xScale} color={colors[i]} pad={monthPad} />
+    <Day {date} {xScale} color={view.colors[i]} pad={monthPad} />
 {/each}
