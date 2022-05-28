@@ -1,5 +1,5 @@
 <script>
-    export let date, xScale, pad;
+    export let date = {}, xScale = i => i, pad = 0;
 
     let {day, month, year, monthOff, yearOff, week} = date;
 

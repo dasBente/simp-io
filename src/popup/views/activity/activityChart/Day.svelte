@@ -1,5 +1,5 @@
 <script>
-    export let xScale, pad, color, date;
+    export let xScale = i => i, pad = 0, color = '#ffffff', date = {};
 
     let {day, weekday, week, monthOff, yearOff} = date;
     let x = xScale(week) + monthOff * pad + yearOff * pad;
