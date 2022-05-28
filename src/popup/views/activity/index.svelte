@@ -1,33 +1,28 @@
 <script>
-    import {paymentsByDay, years} from '../../stores/payments';
-    import Range from "./Range.svelte";
-    import Key from './Key.svelte';
-    import dataViews, {applyView} from "./dataViews";
-    import {datesForVisualization} from "./processing";
+    import {years} from '../../stores/payments';
+    import dataViews from "./dataViews";
+
+    import View from './activityChart/index.svelte';
 
     let view = 0;
     let year = false;
-
-    let range = datesForVisualization(year);
-    let data = range.map(d => $paymentsByDay[d.date] || []);
-
-    $: viewData = applyView(data, dataViews[view]);
 </script>
 
 <div>
-    <svg>
-        <g transform="translate(0,40)">
-            <Key view={viewData} />
-        </g>
-        <g transform="translate(0,60)">
-            <Range view={viewData} {range} {data} />
-        </g>
-    </svg>
+    <View {year} view={dataViews[view]} />
 
     <footer>
         <select bind:value={view}>
             {#each dataViews as v, i}
                 <option value={i}>{v.title}</option>
+            {/each}
+        </select>
+
+        <select bind:value={year}>
+            <option value={false}>Recent</option>
+
+            {#each $years as y}
+                <option value={y}>{y}</option>
             {/each}
         </select>
     </footer>
@@ -41,8 +36,6 @@
         height: 510px;
         width: 100%;
     }
-
-    svg { width: 100%; height: 510px; }
 
     footer {
         width: 100%;

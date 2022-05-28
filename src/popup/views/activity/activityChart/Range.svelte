@@ -5,7 +5,7 @@
     import MonthLabels from "./MonthLabels.svelte";
     import Day from './Day.svelte';
 
-    export let view = {}, range = [], data = [];
+    export let view = {}, range = [];
 
     let monthPad = 3;
 
