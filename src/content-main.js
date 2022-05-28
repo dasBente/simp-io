@@ -1,3 +1,5 @@
+import moment from "moment/moment";
+
 console.log("Content Script is alive");
 
 setTimeout(run, 2000);
@@ -27,11 +29,9 @@ async function expand() {
     }
 }
 
-/**
- * @returns header element of superchat section
- */
-function getHeader() {
-    return descendDOM(getContent(), [0])
+function toDate(str) {
+    let date = str.split(" ").length === 2 ? moment(str, 'MMM DD') : moment(str, 'MMM DD, YYYY');
+    return date.format('YYYY-MM-DD');
 }
 
 function getScData() {
@@ -73,7 +73,7 @@ function toData(elem) {
     let profile = descendDOM(elem, [1, 3, 3]);
 
     return {
-        date: date.childElementCount > 0 && descendDOM(date, [0, 1, 0]).textContent,
+        date: date.childElementCount > 0 && toDate(descendDOM(date, [0, 1, 0]).textContent),
         icon: descendDOM(profile.parentElement, [1, 0, 1, 1]).getAttribute('src'),
         channel: descendDOM(profile, [1, 1, 0, 1, 0]).textContent,
         type: descendDOM(profile, [1, 3, 0, 1, 0]).textContent,
@@ -147,35 +147,4 @@ function descendDOM(source, childIndices = []) {
  */
 function objToArray(obj) {
     return Object.keys(obj).map(k => obj[k]);
-}
-
-/**
- * Truncate string-representation of number down to `n` trailing decimals.
- * @param {number} num number to truncate
- * @param {number} n maximal allowed trailing decimals
- * @returns respective string representation of `num`
- */
-function trunc(num, n) {
-    num = "" + num;
-    let point = num.indexOf(".");
-
-    return point >= 0 ? num.slice(0, point + 1 + n) : num;
-}
-
-/**
- * Summs over a array of numbers.
- * @param {array} nums
- * @returns sum over `nums`
- */
-function sum(nums) {
-    return nums.reduce((acc, next) => acc + next, 0);
-}
-
-/**
- * Arrithmetic mean over the numbers in `nums`.
- * @param {array} nums
- * @returns arrithmetic mean
- */
-function mean(nums) {
-    sum(nums) / nums.length;
 }

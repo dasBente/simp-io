@@ -1,13 +1,17 @@
 <script>
-    import Table from "./table/index.svelte";
+    import Nav from "./Nav.svelte";
+    import pages from './pages';
+
+    let selectedPage = 'table';
+    $: page = pages[selectedPage];
 </script>
 
 <main>
     <header>
-
+        <Nav bind:selected={selectedPage} />
     </header>
 
-    <Table />
+    <svelte:component this={page.component} />
 </main>
 
 <style>
