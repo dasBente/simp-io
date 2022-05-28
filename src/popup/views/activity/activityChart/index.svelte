@@ -3,7 +3,7 @@
     import Range from './Range.svelte';
 
     import {datesForVisualization} from "../processing";
-    import {paymentsByDay} from "../../../stores/payments";
+    import {currencySymbol, paymentsByDay} from "../../../stores/payments";
     import {applyView} from "../dataViews";
 
     export let view = {}, year = false;
@@ -11,15 +11,15 @@
     $: range = datesForVisualization(year);
     $: data = range.map(d => $paymentsByDay[d.date] || []);
 
-    $: viewData = applyView(data, view);
+    $: viewData = applyView(data, view, $currencySymbol);
 </script>
 
 <svg>
-    <g transform="translate(480,40)">
-        <Key view={viewData} witdh="300" />
+    <g transform="translate(380,40)">
+        <Key view={viewData} width="400" />
     </g>
     <g transform="translate(0,60)">
-        <Range view={viewData} {range} {data} />
+        <Range view={viewData} {range} />
     </g>
 </svg>
 

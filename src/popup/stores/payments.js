@@ -21,6 +21,8 @@ export const stats = derived(payments, $payments => $payments.map(d => {
     return { ...rest, total, mean, count, symbol };
 }));
 
+export const currencySymbol = derived(stats, $stats => $stats[0].symbol);
+
 export const summary = derived(stats, $stats => {
     if (!$stats) return { total: 0, count: 0, mean: 0 };
 

@@ -1,7 +1,7 @@
 <script>
     import {scaleBand} from 'd3-scale';
 
-    export let view = {}, width = 300;
+    export let view = {}, width = 400;
 
     $: scale = scaleBand().domain(view.keys).range([0, width]).paddingInner(.02);
 </script>
@@ -14,6 +14,6 @@
 <style>
     text {
         text-anchor: middle;
-        font-size: 12px;
+        font-size: 10px;
     }
 </style>
