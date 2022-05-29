@@ -56,7 +56,8 @@ export const symToCode = sym => {
         '¥': 'JPY',
         '₪': 'ILS',
         '₩': 'KRW',
-        'A$': 'AUD'
+        'A$': 'AUD',
+        'MXD': 'MXN', // slightly hacky
     }[sym];
 
     return code || sym;
