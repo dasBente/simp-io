@@ -47,12 +47,16 @@ export const scStepsByCode = {
 }
 
 export const symToCode = sym => {
+    if (sym.length === 3) sym.replace(/$/, 'D');
+
     let code = {
         '$': 'USD',
         '€': 'EUR',
         '£': 'GBP',
         '¥': 'JPY',
-        '₪': 'ILS'
+        '₪': 'ILS',
+        '₩': 'KRW',
+        'A$': 'AUD'
     }[sym];
 
     return code || sym;
