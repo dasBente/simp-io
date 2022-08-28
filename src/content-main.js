@@ -34,22 +34,49 @@ function toDate(str) {
     return date.format('YYYY-MM-DD');
 }
 
+function processByType(elem) {
+    const label = elem.getAttribute('aria-label');
+
+    if (label === null) {
+        console.error("Label of element is null, which is not allowed!");
+        return;
+    }
+
+    if (label === "") {
+        return membershipGiftToData(elem);
+    } else if (label.includes("Super Chat")) {
+        return superchatToData(elem);
+    } else {
+        console.error("Unknown label " + label)
+    }
+}
+
 function getScData() {
-    let scList = getSCs();
+    const scList = getSCs();
 
     // flatten nodes
-    let scs = Array.from(scList.childNodes[1].childNodes);
+    const scs = Array.from(scList.childNodes[1].childNodes);
 
-    scs = Array.from(scList.childNodes[3].childNodes)
+    console.log(scs);
+
+    const dataFrames = Array.from(scList.childNodes[3].childNodes)
         .map(elems => Array.from(elems.childNodes[5].childNodes))
         .reduce((res, nodes) => res.concat(nodes), scs)
-        .filter(sc => sc.getAttribute('aria-label'))
-        .map(toData)
+
+    console.log(dataFrames);
+
+    const validFrames = dataFrames
+        .filter(sc => sc.tagName === "yt-activity-item-renderer".toUpperCase());
+
+    console.log(validFrames);
+
+    const dataJson = validFrames
+        .map(processByType)
         .map(spreadDate())
         .map(obj => ({ ...obj, price: breakDownCurrency(obj.price) }))
         .reduce(addToJson, {});
 
-    return objToArray(scs);
+    return objToArray(dataJson);
 }
 
 // Returns content root
@@ -68,7 +95,7 @@ function getSCs() {
     return descendDOM(getContent(), [1, 1, 5]);
 }
 
-function toData(elem) {
+function superchatToData(elem) {
     let date = descendDOM(elem, [1, 1]);
     let profile = descendDOM(elem, [1, 3, 3]);
 
@@ -76,8 +103,22 @@ function toData(elem) {
         date: date.childElementCount > 0 && toDate(descendDOM(date, [0, 1, 0]).textContent),
         icon: descendDOM(profile.parentElement, [1, 0, 1, 1]).getAttribute('src'),
         channel: descendDOM(profile, [1, 1, 0, 1, 0]).textContent,
-        type: descendDOM(profile, [1, 3, 0, 1, 0]).textContent,
+        type: "Super Chat",
         price: descendDOM(profile, [3, 0, 1, 0, 1, 0]).textContent
+    }
+}
+
+function membershipGiftToData(elem) {
+    const date = descendDOM(elem, [1, 1]);
+    const profile = descendDOM(elem, [1, 3]);
+
+    return {
+        date: date.textContent,
+        icon: descendDOM(profile, [1, 0, 1, 1]).getAttribute('src'),
+        channel: descendDOM(profile, [3, 1, 1]).textContent.split(" ").reverse().slice(2).reverse().join(" "),
+        type: "Gifted Membership",
+        price: descendDOM(profile, [3, 3, 0, 1]).textContent,
+        numGifted: descendDOM(profile, [3, 1, 3]).textContent.split(" ")[0]
     }
 }
 
