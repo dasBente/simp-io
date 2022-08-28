@@ -40,11 +40,15 @@ export const summary = derived(stats, $stats => {
  */
 export const calendar = derived(
     payments,
-    $payments => $payments
-        .map(ch => ch.data
+    $payments => {
+        const transactions = $payments.map(ch => ch.data
             .map(d => ({...d, date: d.date, name: ch.name, price: d.price.symbol + d.price.amount})))
-        .reduce((acc, next) => acc.concat(next), [])
-        .sort((a, b) => a.date < b.date)
+            .reduce((acc, next) => acc.concat(next), []);
+
+        return transactions
+            .filter(data => data["date"] && data["price"])
+            .sort((a, b) => a.date < b.date);
+    }
 );
 
 export const paymentsByDay = derived(calendar, $calendar => $calendar
