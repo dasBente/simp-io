@@ -1,7 +1,5 @@
 import moment from "moment/moment";
 
-console.log("Content Script is alive");
-
 setTimeout(run, 2000);
 
 async function run() {
@@ -30,7 +28,12 @@ async function expand() {
 }
 
 function toDate(str) {
-    let date = str.split(" ").length === 2 ? moment(str, 'MMM DD') : moment(str, 'MMM DD, YYYY');
+    const dateStr = str.replace("\n", "");
+
+    const date = str.split(" ").length === 2
+        ? moment(dateStr, 'MMM DD')
+        : moment(dateStr, 'MMM DD, YYYY');
+
     return date.format('YYYY-MM-DD');
 }
 
@@ -57,26 +60,24 @@ function getScData() {
     // flatten nodes
     const scs = Array.from(scList.childNodes[1].childNodes);
 
-    console.log(scs);
-
+    // extracts the list of elements that carry data we are interested in
     const dataFrames = Array.from(scList.childNodes[3].childNodes)
         .map(elems => Array.from(elems.childNodes[5].childNodes))
         .reduce((res, nodes) => res.concat(nodes), scs)
 
-    console.log(dataFrames);
-
+    // filter out any frames that do not contain data we're interested in (separators)
     const validFrames = dataFrames
         .filter(sc => sc.tagName === "yt-activity-item-renderer".toUpperCase());
 
-    console.log(validFrames);
+    // convert frames to simple JSON data
+    const dataJson = validFrames.map(processByType);
 
-    const dataJson = validFrames
-        .map(processByType)
-        .map(spreadDate())
+    // propagate dates, process currency, combine into JSON object
+    const withDates = dataJson.map(spreadDate())
         .map(obj => ({ ...obj, price: breakDownCurrency(obj.price) }))
         .reduce(addToJson, {});
 
-    return objToArray(dataJson);
+    return objToArray(withDates);
 }
 
 // Returns content root
@@ -113,7 +114,7 @@ function membershipGiftToData(elem) {
     const profile = descendDOM(elem, [1, 3]);
 
     return {
-        date: date.textContent,
+        date: toDate(date.textContent),
         icon: descendDOM(profile, [1, 0, 1, 1]).getAttribute('src'),
         channel: descendDOM(profile, [3, 1, 1]).textContent.split(" ").reverse().slice(2).reverse().join(" "),
         type: "Gifted Membership",
