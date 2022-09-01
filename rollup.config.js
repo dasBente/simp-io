@@ -65,7 +65,7 @@ export default [
 
 	/** Content Script **/
 	{
-		input: 'src/content-main.js',
+		input: 'src/content/main.js',
 		output: {
 			sourcemap: true,
 			format: 'iife',

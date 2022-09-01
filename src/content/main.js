@@ -1,4 +1,5 @@
 import moment from "moment/moment";
+import {toDate, spreadDate, breakDownCurrency, addToJson, objToArray} from "./dataProcessing.js";
 
 setTimeout(run, 2000);
 
@@ -27,15 +28,6 @@ async function expand() {
     }
 }
 
-function toDate(str) {
-    const dateStr = str.replace("\n", "");
-
-    const date = str.split(" ").length === 2
-        ? moment(dateStr, 'MMM DD')
-        : moment(dateStr, 'MMM DD, YYYY');
-
-    return date.format('YYYY-MM-DD');
-}
 
 function processByType(elem) {
     const label = elem.getAttribute('aria-label');
@@ -123,32 +115,6 @@ function membershipGiftToData(elem) {
     }
 }
 
-function breakDownCurrency(price) {
-    return {
-        amount: Number(price.replace(/[^0-9.-]+/g, '')),
-        symbol: price.replace(/[0-9.-]+/g, '')
-    };
-}
-
-function spreadDate() {
-    // generate closure to keep information from previous elements
-    let date;
-
-    return elem => {
-        date = elem.date ? elem.date : date;
-        return { ...elem, date: date };
-    }
-}
-
-function addToJson(json, data) {
-    let { channel, icon, price, date, type } = data;
-
-    let ch = channel in json ? { ...json[channel] } : { name: channel, icon, data: [] };
-    ch.data.push({ type, date, price });
-
-    return { ...json, [channel]: ch };
-}
-
 /**
  * Wait for a certain amount of time.
  * @param {Number} ms wait time (in ms)
@@ -182,11 +148,3 @@ function descendDOM(source, childIndices = []) {
     return node;
 }
 
-/**
- * Turns input object into a array based on keys.
- * @param {object} obj input object
- * @returns array of object items in order of keys
- */
-function objToArray(obj) {
-    return Object.keys(obj).map(k => obj[k]);
-}
