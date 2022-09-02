@@ -7,14 +7,28 @@ export function toDate(str) {
         ? moment(dateStr, 'MMM DD')
         : moment(dateStr, 'MMM DD, YYYY');
 
-    return date.format('YYYY-MM-DD');
+    let outDate = date.format('YYYY-MM-DD');
+
+    if (outDate === "Invalid date") console.warn(`Invalid date: ${str}`);
+
+    return outDate;
 }
 
 export function breakDownCurrency(price) {
-    return {
-        amount: Number(price.replace(/[^0-9.-]+/g, '')),
-        symbol: price.replace(/[0-9.-]+/g, '').trim()
-    };
+    const amount = Number(price.replace(/[^0-9.-]+/g, ''));
+
+    if (!amount) {
+        console.error(`Payment malformed: No amount in ${price}`);
+        return;
+    }
+
+    const symbol = price.replace(/[0-9.-]+/g, '').trim();
+    if (!symbol) {
+        console.error(`Payment malformed: No currency symbol in ${price}`);
+        return;
+    }
+
+    return {amount, symbol};
 }
 
 export function spreadDate() {

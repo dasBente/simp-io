@@ -10,6 +10,19 @@ describe("toDate", () => {
     it("converts MMM DD, YYYY into YYYY-MM-DD", () => {
         expect(toDate("Sep 4, 2012")).toBe("2012-09-04");
     });
+
+    it("prints a warning if the input date is not valid", () => {
+        spyOn(console, "warn");
+
+        toDate("Invalid");
+        expect(console.warn).toHaveBeenCalledWith("Invalid date: Invalid");
+
+        toDate("Feb 31");
+        expect(console.warn).toHaveBeenCalledWith("Invalid date: Feb 31");
+
+        toDate("Feb 29, 2022");
+        expect(console.warn).toHaveBeenCalledWith("Invalid date: Feb 29, 2022");
+    });
 });
 
 
@@ -26,6 +39,16 @@ describe("breakDownCurrency", () => {
         expect(breakDownCurrency("1.00PHP\n")).toEqual({amount: 1, symbol: "PHP"});
         expect(breakDownCurrency("12\t\nA$ \r")).toEqual({amount: 12, symbol: "A$"});
     });
+
+    it("logs an error if either currency or amount are missing", () => {
+        spyOn(console, "error");
+
+        expect(breakDownCurrency("1.00")).toBe(undefined);
+        expect(console.error).toHaveBeenCalledWith("Payment malformed: No currency symbol in 1.00");
+
+        expect(breakDownCurrency("€")).toBe(undefined);
+        expect(console.error).toHaveBeenCalledWith("Payment malformed: No amount in €");
+    })
 })
 
 
@@ -63,18 +86,4 @@ describe("spreadDate", () => {
         spreader({date: "b"});
         expect(spreader({}).date).toBe("b");
     });
-});
-
-
-import {addToJson} from '../../src/content/dataProcessing.js';
-
-describe("addToJson", () => {
-    it("", () => fail())
-});
-
-
-import {objToArray} from '../../src/content/dataProcessing.js';
-
-describe("objToArray", () => {
-    it("", () => fail())
 });

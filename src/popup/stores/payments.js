@@ -1,25 +1,14 @@
 import { readable, derived } from 'svelte/store';
 import currency from 'currency.js';
 
+import {summarize} from "../data/payments.js";
+
 export const payments = readable(undefined, set => {
     browser.runtime.sendMessage({ id: 'getScore' }).then(res => set(res.results));
-
     return () => set(undefined);
 });
 
-export const stats = derived(payments, $payments => $payments.map(d => {
-    let prices = d.data.map(p => p.price.amount);
-
-    let symbol = d.data[0].price.symbol;
-
-    let total = currency(prices.reduce((acc, next) => acc + next, 0)).format({ symbol });
-    let count = prices.length;
-    let mean = currency(total).divide(count).format({ symbol });
-
-    let {data, ...rest} = d;
-
-    return { ...rest, total, mean, count, symbol };
-}));
+export const stats = derived(payments, $payments => $payments.map(summarize));
 
 export const currencySymbol = derived(stats, $stats => $stats[0].symbol);
 

@@ -27,6 +27,7 @@
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.0",
     "svelte": "^3.0.0",
+    "underscore": "^1.13.4",
     "webextension-polyfill": "^0.9.0"
   },
   "type": "module"
