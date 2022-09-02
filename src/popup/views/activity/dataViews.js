@@ -1,7 +1,7 @@
 import currency from "currency.js";
 import {scaleLog, scaleSequential, scaleLinear} from "d3-scale";
 import {interpolatePlasma} from "d3-scale-chromatic";
-import {colors, scStepsByCode, symToCode} from "../../lib/superchats";
+import {colors, scStepsByCode, symToCode} from "../../../lib/superchats";
 import {extent, max} from 'd3-array';
 
 const dailySum = data => data.reduce((acc, next) => currency(acc).add(currency(next.price)), currency(0)).value;

@@ -1,4 +1,4 @@
-import {toDate} from '../../src/content/dataProcessing.js';
+import {toDate} from '../../src/data/dataProcessing.js';
 import moment from "moment";
 
 describe("toDate", () => {
@@ -26,7 +26,7 @@ describe("toDate", () => {
 });
 
 
-import {breakDownCurrency} from "../../src/content/dataProcessing.js";
+import {breakDownCurrency} from "../../src/data/dataProcessing.js";
 
 describe("breakDownCurrency", () => {
     it("separates currency and amount", () => {
@@ -52,7 +52,7 @@ describe("breakDownCurrency", () => {
 })
 
 
-import {spreadDate} from '../../src/content/dataProcessing.js';
+import {spreadDate} from '../../src/data/dataProcessing.js';
 
 describe("spreadDate", () => {
     it("generates a closure", () => {

@@ -1,4 +1,4 @@
-import {summarize} from "../../../src/popup/data/payments.js";
+import {summarize} from "../../src/data/payments.js";
 
 describe("summarize", () => {
     let minimal = {data: []};
@@ -20,4 +20,18 @@ describe("summarize", () => {
     it("keeps any other fields it might have unchanged", () => {
         expect(summarize( {...minimal, a: 2}).a).toBe(2);
     });
-})
+
+    it("generates a summary for data points", () => {
+        expect(summarize({
+            data: [{price: {amount: 10, symbol: "€"}}]
+        })).toEqual({count: 1, total: "€10.00", mean: "€10.00", symbol: "€"});
+    });
+
+    it("correctly sums up over several data points", () => {
+        /*expect(summarize({
+            data: [{price: {amount: }}]
+        }))*/
+    })
+});
+
+
