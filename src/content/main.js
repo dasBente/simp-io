@@ -1,5 +1,3 @@
-import moment from "moment/moment";
-import {toDate, spreadDate, breakDownCurrency, addToJson, objToArray} from "../data/dataProcessing.js";
 import {expand, getScData} from './webScraping.js';
 
 setTimeout(run, 2000);
