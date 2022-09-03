@@ -1,7 +1,7 @@
-import {Payment, SuperChat, GiftedMembership} from "../../src/model/Payment.js";
+import {PaymentParser, SuperChat, GiftedMembership} from "../../src/model/PaymentParser.js";
 
 describe("Payment", () => {
-    const instance = new Payment("4€", "Jul 28, 2021");
+    const instance = new PaymentParser("4€", "Jul 28, 2021");
 
     it("is built from payment information in a superchat", () => {
         expect(instance).toBeDefined();
@@ -19,7 +19,7 @@ describe("Payment", () => {
     });
 
     it("can be instanced from it's serialized version", () => {
-        const instance3 = Payment.fromJson(instance);
+        const instance3 = PaymentParser.fromJson(instance);
         expect(instance3).toEqual(instance);
     });
 });

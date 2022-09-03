@@ -44,10 +44,10 @@ describe("breakDownCurrency", () => {
         spyOn(console, "error");
 
         expect(breakDownCurrency("1.00")).toBe(undefined);
-        expect(console.error).toHaveBeenCalledWith("Payment malformed: No currency symbol in 1.00");
+        expect(console.error).toHaveBeenCalledWith("PaymentParser malformed: No currency symbol in 1.00");
 
         expect(breakDownCurrency("€")).toBe(undefined);
-        expect(console.error).toHaveBeenCalledWith("Payment malformed: No amount in €");
+        expect(console.error).toHaveBeenCalledWith("PaymentParser malformed: No amount in €");
     })
 })
 

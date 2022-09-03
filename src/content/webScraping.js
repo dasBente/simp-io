@@ -1,6 +1,5 @@
 import {addToJson, breakDownCurrency, objToArray, spreadDate} from "../data/dataProcessing.js";
-import {Payment} from "../model/Payment.js";
-import {Channel} from "../model/Channel.js";
+import {ChannelStats} from "../model/ChannelStats.js";
 
 export async function expand() {
     let button = document.getElementById('more-contents-button');
@@ -27,13 +26,13 @@ export function getScData() {
     const dataFrames = Array.from(scList.childNodes[3].childNodes)
         .map(elems => Array.from(elems.childNodes[5].childNodes))
         .reduce((res, nodes) => res.concat(nodes), scs)
-
-    // filter out any frames that do not contain data we're interested in (separators)
-    const validFrames = dataFrames
         .filter(sc => sc.tagName === "yt-activity-item-renderer".toUpperCase());
 
     // convert frames to simple JSON data
-    const dataJson = validFrames.map(Payment.fromElement);
+    //const dataJson = dataFrames.map(PaymentParser.fromElement);
+
+    const channels = parseElements(dataFrames);
+    console.log(channels);
 
     // propagate dates, process currency, combine into JSON object
     const withDates = dataJson.map(spreadDate())
@@ -44,14 +43,9 @@ export function getScData() {
 }
 
 function parseElements(elems) {
-    const channels = {};
-
-    elems.forEach(e => {
-        const {name, payment} = Payment.fromElement(e);
-        if (!name in channels) channels[name] = new Channel(name);
-        channels[name].addPayment(payment);
-
-    })
+    const channels = new ChannelStats();
+    elems.forEach(channels.addPaymentFromElement);
+    return channels;
 }
 
 // Returns content root
