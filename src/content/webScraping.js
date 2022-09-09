@@ -1,5 +1,4 @@
 import {addToJson, breakDownCurrency, objToArray, spreadDate} from "../data/dataProcessing.js";
-import {ChannelStats} from "../model/ChannelStats.js";
 
 export async function expand() {
     let button = document.getElementById('more-contents-button');
@@ -14,38 +13,6 @@ export async function expand() {
         }
         await wait(100);
     }
-}
-
-export function getScData() {
-    const scList = getSCs();
-
-    // flatten nodes
-    const scs = Array.from(scList.childNodes[1].childNodes);
-
-    // extracts the list of elements that carry data we are interested in
-    const dataFrames = Array.from(scList.childNodes[3].childNodes)
-        .map(elems => Array.from(elems.childNodes[5].childNodes))
-        .reduce((res, nodes) => res.concat(nodes), scs)
-        .filter(sc => sc.tagName === "yt-activity-item-renderer".toUpperCase());
-
-    // convert frames to simple JSON data
-    //const dataJson = dataFrames.map(PaymentParser.fromElement);
-
-    const channels = parseElements(dataFrames);
-    console.log(channels);
-
-    // propagate dates, process currency, combine into JSON object
-    const withDates = dataJson.map(spreadDate())
-        .map(obj => ({ ...obj, price: breakDownCurrency(obj.price) }))
-        .reduce(addToJson, {});
-
-    return objToArray(withDates);
-}
-
-function parseElements(elems) {
-    const channels = new ChannelStats();
-    elems.forEach(channels.addPaymentFromElement);
-    return channels;
 }
 
 // Returns content root
@@ -96,4 +63,3 @@ export function descendDOM(source, childIndices = []) {
 
     return node;
 }
-
