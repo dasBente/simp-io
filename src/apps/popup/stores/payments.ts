@@ -1,7 +1,7 @@
 import { readable, derived } from 'svelte/store';
 import currency from 'currency.js';
 
-import {summarize} from "../../data/payments.js";
+import {summarize} from "../../../data/payments.js";
 
 export const payments = readable(undefined, set => {
     browser.runtime.sendMessage({ id: 'getScore' }).then(res => set(res.results));

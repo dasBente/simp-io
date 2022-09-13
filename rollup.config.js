@@ -26,7 +26,7 @@ const makePlugins = (opts = {svelte: false, css: undefined}) => [
 export default [
 	/** Pop-up **/
 	{
-		input: 'src/popup/main.ts',
+		input: 'src/apps/popup/main.ts',
 		output: {
 			sourcemap: true,
 			format: 'iife',
@@ -41,7 +41,7 @@ export default [
 
 	/** Background Script **/
 	{
-		input: 'src/background/main.ts',
+		input: 'src/apps/background/main.ts',
 		output: {
 			sourcemap: true,
 			format: 'iife',
@@ -56,7 +56,7 @@ export default [
 
 	/** Content Script **/
 	{
-		input: 'src/content/main.ts',
+		input: 'src/apps/content/main.ts',
 		output: {
 			sourcemap: true,
 			format: 'iife',

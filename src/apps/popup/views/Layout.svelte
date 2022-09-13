@@ -1,6 +1,6 @@
 <script>
     import Nav from "./Nav.svelte";
-    import pages from './pages';
+    import pages from './pages.js';
 
     let selectedPage = 'table';
     $: page = pages[selectedPage];

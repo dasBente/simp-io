@@ -1,6 +1,6 @@
 <script>
-    import {years} from '../../stores/payments';
-    import dataViews from "./dataViews";
+    import {years} from '../../stores/payments.js';
+    import dataViews from "./dataViews.js";
 
     import View from './activityChart/index.svelte';
 

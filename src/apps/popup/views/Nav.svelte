@@ -1,5 +1,5 @@
 <script>
-    import pages from './pages';
+    import pages from './pages.js';
 
     export let selected;
 </script>

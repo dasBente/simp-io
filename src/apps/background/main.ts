@@ -1,3 +1,4 @@
+import {browser} from 'webextension-polyfill-ts';
 import * as handlers from './handlers';
 
 browser.runtime.onMessage.addListener(async ({id, data}) => {

@@ -1,81 +1,76 @@
-//import {toDate} from "../data/dataProcessing.js";
-//import {descendDOM} from "../content/webScraping.js";
-///import {ChannelStats} from "./ChannelStats.js";
+import {descendDOM} from "../apps/content/webScraping";
+import {fromDate, toDate} from "../data/dataProcessing";
 
-export class PaymentParser {
-    date;
-    channels;
+export class Payment<T> {
+    type: string = "";
+    name: string = "";
+    date: string = "";
+    data: T = null;
 
-    constructor() {
-        this.channels = new ChannelStats();
-    }
-
-    static Types = [SuperChat.constructor.name, GiftedMembership.constructor.name];
-
-    parseNext(elem) {
-        const next = Payment.fromElement(elem);
-        this.date = next.date ? next.date : this.date;
-        next.date = this.date;
-        this.channels.addPayment(next);
-    }
-}
-
-class Payment {
-    type = "";
-    name = "";
-    date = "";
-    data = {};
-
-    constructor(name, date, data) {
-        this.type = this.constructor.name;
-        this.name = name;
-        this.date = date;
-        this.data = data;
-    }
-
-    static fromElement(elem) {
+    public static fromElem(elem: Element): Payment<any> {
         const label = elem.getAttribute('aria-label');
 
+        let payment: Payment<any>;
+
         if (label === "") {
-            return GiftedMembership.fromElement(elem);
+            payment = GiftedMembership.fromElement(elem);
         } else if (label.includes("Super Chat")) {
-            return SuperChat.fromElement(elem);
+            payment = SuperChat.fromElement(elem);
         } else {
             throw new Error("No type could be determined for this element.");
         }
+
+        return payment;
+    }
+
+    public asDate(): Date {
+        return fromDate(this.date);
     }
 }
 
-class SuperChat extends Payment{
-    static fromElement(elem) {
+export class SuperChat {
+    amount: string;
+
+    constructor(amount) {
+        this.amount = amount;
+    }
+
+    static fromElement(elem): Payment<SuperChat> {
         const date = descendDOM(elem, [1, 1]);
         const profile = descendDOM(elem, [1, 3, 3]);
 
-        return new SuperChat(
-            date.childElementCount > 0 && toDate(descendDOM(date, [0, 1, 0]).textContent),
-            descendDOM(profile, [1, 1, 0, 1, 0]).textContent,
-            descendDOM(profile, [3, 0, 1, 0, 1, 0]).textContent
-        );
+        const payment = new Payment<SuperChat>();
+        payment.type = "SuperChat";
+        payment.name = descendDOM(profile, [1, 1, 0, 1, 0]).textContent;
+        payment.date = date.childElementCount > 0 && toDate(descendDOM(date, [0, 1, 0]).textContent);
+        payment.data = new SuperChat(descendDOM(profile, [3, 0, 1, 0, 1, 0]).textContent);
+
+        return payment;
     }
 }
 
-class GiftedMembership extends Payment {
-    count;
+export class GiftedMembership {
+    amount: string;
+    count: number;
 
-    constructor(payment, date, count) {
-        super(payment, date);
+    constructor(amount, count) {
         this.count = count;
+        this.amount = amount
     }
 
     static fromElement(elem) {
         const date = descendDOM(elem, [1, 1]);
         const profile = descendDOM(elem, [1, 3]);
 
-        return new GiftedMembership(
-            toDate(date.textContent),
-            descendDOM(profile, [3, 1, 1]).textContent.split(" ").reverse().slice(2).reverse().join(" "),{
-            amount: descendDOM(profile, [3, 3, 0, 1]).textContent,
-            count: descendDOM(profile, [3, 1, 3]).textContent.split(" ")[0],
-        });
+        const payment = new Payment<GiftedMembership>();
+        payment.type = "GiftedMembership";
+        payment.name = descendDOM(profile, [3, 1, 1]).textContent.split(" ").reverse().slice(2).reverse().join(" "),
+        payment.date = toDate(date.textContent);
+        payment.data = new GiftedMembership(
+            descendDOM(profile, [3, 3, 0, 1]).textContent,
+            descendDOM(profile, [3, 1, 3]).textContent.split(" ")[0]
+        )
+
+        return payment;
     }
 }

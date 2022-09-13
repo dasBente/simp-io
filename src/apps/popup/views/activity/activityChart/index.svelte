@@ -2,9 +2,9 @@
     import Key from './Key.svelte';
     import Range from './Range.svelte';
 
-    import {datesForVisualization} from "../processing";
-    import {currencySymbol, paymentsByDay} from "../../../stores/payments";
-    import {applyView} from "../dataViews";
+    import {datesForVisualization} from "../processing.js";
+    import {currencySymbol, paymentsByDay} from "../../../stores/payments.js";
+    import {applyView} from "../dataViews.js";
 
     export let view = {}, year = false;
 

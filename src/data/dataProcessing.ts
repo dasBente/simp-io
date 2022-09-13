@@ -1,6 +1,6 @@
 import moment from "moment";
 
-export function toDate(str) {
+export function toDate(str: string): string {
     const dateStr = str.replace("\n", "");
 
     const date = str.split(" ").length === 2
@@ -8,11 +8,10 @@ export function toDate(str) {
         : moment(dateStr, 'MMM DD, YYYY');
 
     let outDate = date.format('YYYY-MM-DD');
-
-    if (outDate === "Invalid date") console.warn(`Invalid date: ${str}`);
-
-    return outDate;
+    return outDate === "Invalid date" ? undefined : outDate;
 }
+
+export const fromDate = (str: string): Date => moment(str, "YYYY-MM-DD").toDate();
 
 export function breakDownCurrency(price) {
     const amount = Number(price.replace(/[^0-9.-]+/g, ''));

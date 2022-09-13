@@ -1,4 +1,10 @@
+import {browser} from 'webextension-polyfill-ts';
+
 let inProgress = false;
+
+class Browser {
+
+}
 
 const startProcessing = () => {
     inProgress = true;

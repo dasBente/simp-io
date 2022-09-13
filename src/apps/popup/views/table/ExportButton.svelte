@@ -1,6 +1,6 @@
 <script>
     import moment from 'moment';
-    import {payments} from '../../stores/payments';
+    import {payments} from '../../stores/payments.js';
 
     let filename = `simpio-${moment().format('YYYY-MM-DD')}.json`
 
