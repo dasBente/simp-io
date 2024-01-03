@@ -1,5 +1,6 @@
-export const scLevelByCurrency = (currencyCode: string) => {
-    const steps = [1, 2, 5, 10, 20, 50, 100, 500];
+const stepsNormalized = [1, 2, 5, 10, 20, 50, 100, 500]
+
+export const scLevelsByCurrency = (currencyCode: string) => {
     const multipliers: Record<string, number> = {
         'ARS': 10, 'RUB': 20, 'UGX': 1000, 'INR': 20, 'UYU': 15,
         'CZK': 10, 'ZAR': 7, 'MXN': 10, 'RSD': 5, 'PHP': 25,
@@ -10,8 +11,8 @@ export const scLevelByCurrency = (currencyCode: string) => {
         'PLN': 5, 'DKK': 10
     }
 
-    if (currencyCode in multipliers) return steps.map(s => s * multipliers[currencyCode]);
-    return steps;
+    if (currencyCode in multipliers) return stepsNormalized.map(s => s * multipliers[currencyCode]);
+    return stepsNormalized;
 }
 
 const symToCode = (sym: string): string => {
@@ -31,6 +32,7 @@ const symToCode = (sym: string): string => {
     return sym in symbolToCode ? symbolToCode[sym] : sym.replace("$", 'D');
 }
 
+/** Colors for respective superchat tiers */
 export const colors = [
     'rgba(30,136,229,1)', // 1
     'rgba(0,229,255,1)', // 2
@@ -41,6 +43,25 @@ export const colors = [
     'rgba(230,33,23,1)', // 100
     'rgba(230,33,23,1)'  // 500
 ];
+
+/**
+ * Calculates the color corresponding to a respective superchat tier for a given amount of money.  
+ * If a count is given, this will be used to determine the average over all payments.
+ * 
+ * @param amount total amount of money to calculate tier for
+ * @param currency currency the payment is made in
+ * @param count number of payments constituting the amount (default: 1)
+ * @returns string color of the respective superchat tier (average)
+ */
+export const colorByAmount = (amount: number, currency: string, count: number = 1): string => {
+    if (count <= 0) throw new Error("Can't have counts of 0 or lower");
+    
+    const trueAmount = amount / count;
+    const steps = scLevelsByCurrency(currency || 'USD');
+    const index = steps.findIndex(x => x > trueAmount) - 1;
+
+    return colors[index < 0 ? steps.length - 1 : index];
+}
 
 const amountRegex = /(\b\d+(?:[.,]\d+)?\b(?!(?:[.,]\d+)))/
 
