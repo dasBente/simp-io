@@ -29,6 +29,6 @@ import { type PaymentData } from "$lib/data/types"
         return data;
     });
 
-    browser.runtime.sendMessage({ id: 'saveScore', data: paymentData });
+    browser.runtime.sendMessage({ id: 'save-score', data: paymentData });
 })();
 
