@@ -1,3 +1,6 @@
+import moment from "moment";
+import type { PaymentData } from "./types";
+
 const stepsNormalized = [1, 2, 5, 10, 20, 50, 100, 500]
 
 export const scLevelsByCurrency = (currencyCode: string) => {
@@ -74,4 +77,26 @@ export const parseCurrency = (data: string): {amount: number, currency: string} 
     const currency = symbol === "" ? "N/A" : symToCode(symbol);
 
     return {amount, currency};
+}
+
+
+export function parsePaymentData(data: string[], fallbackDate: string): PaymentData {
+    let date = paymentDateFormat(data[0]);
+    
+    if (date === "Invalid date") {
+        date = paymentDateFormat(fallbackDate);
+    } else {
+        data = data.slice(1);
+    }
+
+    const {amount, currency} = parseCurrency(data[data.length - 1]);
+
+    const name = data.length == 2 ? "N/A" : data[0];
+    const type = data[data.length == 2 ? 0 : 1];
+
+    return {date, name, amount, currency, type};
+}
+
+export function paymentDateFormat(date?: string): string {
+    return moment(date).format("YYYY-MM-DD")
 }

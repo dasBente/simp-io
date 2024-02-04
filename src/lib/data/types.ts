@@ -1,0 +1,1 @@
+export type PaymentData = {date: string, name: string, amount: number, currency: string, type: string}
